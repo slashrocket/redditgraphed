@@ -1,11 +1,10 @@
-@import 'scheme';
 /* Make clicks pass-through */
 #nprogress {
   pointer-events: none;
 }
 
 #nprogress .bar {
-  background: $secondary;
+  background: #339933;
 
   position: fixed;
   z-index: 9999;
