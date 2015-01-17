@@ -16,8 +16,10 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <%= render partial: 'layouts/nprogress' %>
-  <%= render partial: 'layouts/header' %>
-  <%= yield %>
+  <div class="container">
+    <%= render partial: 'layouts/nprogress' %>
+    <%= render partial: 'layouts/header' %>
+    <%= yield %>
+  </div>
 </body>
 </html>
