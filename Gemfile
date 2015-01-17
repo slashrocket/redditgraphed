@@ -30,7 +30,8 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Devise for user authentication
 gem 'devise'
-
+# reddit API for Ruby
+gem 'redditkit'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
