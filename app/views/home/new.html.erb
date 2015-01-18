@@ -1,4 +1,4 @@
 <%# Iterate through top ten and print subreddit %>
-<% @subscriber.each do |s| %>
-  <%= s.subreddit %><br>
+<% @subscriber.each do |title,score| %>
+  <%= score %> - <i><%= title %></i><br>
 <% end %>
