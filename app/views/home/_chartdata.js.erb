@@ -2,7 +2,7 @@ $(document).ready(function() {
 var subscribersdata = {
     labels: [
       <% @subscribersorted.each_pair do |x, y| %>
-        "<%= x.to_s.truncate(20) %>",
+        "<%= truncate(x, length: 20, escape: false) %>",
       <% end %>
     ],
     datasets: [
