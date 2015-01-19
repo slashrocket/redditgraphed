@@ -1,4 +1,5 @@
 class GetTopTenJob < ActiveJob::Base
+  RUN_EVERY = 1.minute
   queue_as :default
 
   def perform(*args)
