@@ -13,6 +13,8 @@ gem 'bootstrap-sass'
 gem 'font-awesome-rails'
 #for mikes shitty dev box fix
 gem "puma"
+#for background jobs
+gem 'sidekiq'
 gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
