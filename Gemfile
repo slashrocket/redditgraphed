@@ -15,6 +15,8 @@ gem 'font-awesome-rails'
 gem "puma"
 #for background jobs
 gem 'sidekiq'
+#for sidekiq db support stuff
+gem 'redis'
 gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'

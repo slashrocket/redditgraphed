@@ -5,4 +5,4 @@ class GetTopTenJob < ActiveJob::Base
     Subscriber.save_top_ten
   end
 end
-GetTopTenJob.set(wait: 1.minute).perform_later(record)
+GetTopTenJob.set(wait: 1.minute).perform_later
