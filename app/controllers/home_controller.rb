@@ -4,7 +4,7 @@ class HomeController < ApplicationController
     @subscriber = Subscriber.title_score_hash
     #sort by upvote count (the value of hash)
     @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
-    @sub2 = Subscriber.save_top_ten
+    #@sub2 = Subscriber.save_top_ten move this to a bg process
   end
 
   def new
