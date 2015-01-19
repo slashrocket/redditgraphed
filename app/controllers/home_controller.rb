@@ -3,6 +3,6 @@ class HomeController < ApplicationController
   end
 
   def new
-    @subscriber = Subscriber.top_ten_hash
+    @subscriber = Subscriber.title_score_hash
   end
 end
