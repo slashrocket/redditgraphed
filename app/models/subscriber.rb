@@ -3,15 +3,16 @@ class Subscriber < ActiveRecord::Base
   def self.top_ten
     @front = RedditKit.front_page(options = {:limit => 10})
   end
-
+  # Saves top ten title, score, subreddit to db
   def self.save_top_ten
-    @subscriber = Subscriber.title_score_hash
-    @subscriber.each_pair do |x,y|
-      new_sub = Subscriber.new
-      new_sub[:title] = x
-      new_sub[:count] = y
-      new_sub.save!
+    top_ten.each do |f|
+      @new_sub = Subscriber.new
+      @new_sub[:title] = f.title
+      @new_sub[:count] = f.score
+      @new_sub[:subreddit] = f.subreddit
+      @new_sub.save!
     end
+    return @new_sub
   end
   # Creates hash with title as key and score as value
   def self.title_score_hash
