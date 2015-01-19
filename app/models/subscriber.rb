@@ -7,7 +7,7 @@ class Subscriber < ActiveRecord::Base
   def self.title_score_hash
     ten_hash = {}
     top_ten.each do |t|
-      ten_hash[:"#{t.title}"] = t.score
+      ten_hash["#{t.title}"] = t.score
     end
     return ten_hash
   end
