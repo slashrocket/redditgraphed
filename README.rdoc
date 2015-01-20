@@ -4,3 +4,4 @@
 * Done via sidekiq
 * Start sidekiq via: 'bundle exec sidekiq'
 * Restart sidekiq via: 'kill -kill $(cat tmp/pids/sidekiq.pid) && bundle exec sidekiq'
+* Follow the sidekiq logs via: 'tail -f log/sidekiq.log'
