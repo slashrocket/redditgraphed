@@ -6,7 +6,7 @@ class Subscriber < ActiveRecord::Base
 
   # Saves each individual post as a new record to db
   def self.save_top_ten
-    @front.each do |post|
+    Subscriber.top_ten.each do |post|
       new_sub = Subscriber.new
       new_sub.title = post.title
       new_sub.count = post.score

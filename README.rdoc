@@ -3,3 +3,4 @@
 === BACKGROUND PROCESSING
 * Done via sidekiq
 * Start sidekiq via: 'bundle exec sidekiq'
+* Restart sidekiq via: 'kill -kill $(cat tmp/pids/sidekiq.pid) && bundle exec sidekiq'
