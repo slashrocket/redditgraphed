@@ -1,18 +1,20 @@
 class Subscriber < ActiveRecord::Base
-  # Pulls top ten posts from reddit front page
+  # Creates array of top ten posts from reddit's front page. Each post has attributes in a hash.
   def self.top_ten
     @front = RedditKit.front_page(options = {:limit => 10})
   end
 
+  # Saves each individual post as a new record to db
   def self.save_top_ten
-    @subscriber = Subscriber.title_score_hash
-    @subscriber.each_pair do |x,y|
+    @front.each do |post|
       new_sub = Subscriber.new
-      new_sub[:title] = x
-      new_sub[:count] = y
+      new_sub.title = post.title
+      new_sub.count = post.score
+      new_sub.subreddit = post.subreddit
       new_sub.save!
     end
   end
+
   # Creates hash with title as key and score as value
   def self.title_score_hash
     ten_hash = {}
