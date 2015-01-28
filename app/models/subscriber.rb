@@ -28,9 +28,9 @@ class Subscriber < ActiveRecord::Base
 
   def self.title_score_hash_timeframe(x)
     ten_hash = {}
-    Subscriber.where('created_at > ?', Time.now.utc - x.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9]
-    top_ten.each do |t|
-      ten_hash["#{t.title}"] = t.score
+    topten = Subscriber.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9]
+    topten.each do |t|
+      ten_hash["#{t.title}"] = t.count
     end
     return ten_hash
   end
