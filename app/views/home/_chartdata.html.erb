@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-sm-12" id="subscriberschartcontainer">
-  <h3>Top 10 reddit posts right now</h3>
+  <h3>Top 10 reddit posts: <%= select 'home', 'timeframe',  @timeframe, {:class => "form-control", :remote => true}  %></h3>
   <canvas id="subscriberschart"></canvas>
 </div>
 </div>
