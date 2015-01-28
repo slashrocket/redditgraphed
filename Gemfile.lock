@@ -39,12 +39,18 @@ GEM
     arel (6.0.0)
     autoprefixer-rails (4.0.2.2)
       execjs
+    awesome_print (1.6.1)
     bcrypt (3.1.9)
     bootstrap-sass (3.3.1.0)
       sass (~> 3.2)
     builder (3.2.2)
+    bullet (4.14.2)
+      activesupport (>= 3.0.0)
+      uniform_notifier (>= 1.6.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
+    code_analyzer (0.4.5)
+      sexp_processor
     coffee-rails (4.1.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0, < 5.0)
@@ -52,6 +58,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.8.0)
+    colored (1.2)
     connection_pool (2.1.0)
     devise (3.4.1)
       bcrypt (~> 3.0)
@@ -81,6 +88,10 @@ GEM
       thor (>= 0.14, < 2.0)
     json (1.8.2)
     libv8 (3.16.14.7)
+    lol_dba (1.6.4)
+      actionpack (>= 3.0)
+      activerecord (>= 3.0)
+      railties (>= 3.0)
     loofah (2.0.1)
       nokogiri (>= 1.5.9)
     mail (2.6.3)
@@ -120,6 +131,16 @@ GEM
       rails-deprecated_sanitizer (>= 1.0.1)
     rails-html-sanitizer (1.0.1)
       loofah (~> 2.0)
+    rails_best_practices (1.15.4)
+      activesupport
+      awesome_print
+      code_analyzer (>= 0.4.3)
+      colored
+      erubis
+      i18n
+      json
+      require_all
+      ruby-progressbar
     railties (4.2.0)
       actionpack (= 4.2.0)
       activesupport (= 4.2.0)
@@ -136,8 +157,10 @@ GEM
     redis-namespace (1.5.1)
       redis (~> 3.0, >= 3.0.4)
     ref (1.0.5)
+    require_all (1.3.2)
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
+    ruby-progressbar (1.7.1)
     sass (3.4.9)
     sass-rails (5.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -148,6 +171,7 @@ GEM
     sdoc (0.4.1)
       json (~> 1.7, >= 1.7.7)
       rdoc (~> 4.0)
+    sexp_processor (4.4.5)
     sidekiq (3.3.0)
       celluloid (>= 0.16.0)
       connection_pool (>= 2.0.0)
@@ -178,6 +202,7 @@ GEM
     uglifier (2.7.0)
       execjs (>= 0.3.0)
       json (>= 1.8.0)
+    uniform_notifier (1.6.2)
     warden (1.2.3)
       rack (>= 1.0)
 
@@ -187,15 +212,18 @@ PLATFORMS
 DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass
+  bullet
   coffee-rails (~> 4.1.0)
   devise
   font-awesome-rails
   jbuilder (~> 2.0)
   jquery-rails
+  lol_dba
   pg
   puma
   quiet_assets
   rails (= 4.2.0)
+  rails_best_practices
   redditkit
   redis
   sass-rails (~> 5.0)
