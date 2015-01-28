@@ -76,6 +76,7 @@ GEM
     globalid (0.3.0)
       activesupport (>= 4.1.0)
     hike (1.2.3)
+    hirb (0.7.3)
     hitimes (1.2.2)
     htmlentities (4.3.3)
     i18n (0.7.0)
@@ -216,6 +217,7 @@ DEPENDENCIES
   coffee-rails (~> 4.1.0)
   devise
   font-awesome-rails
+  hirb
   jbuilder (~> 2.0)
   jquery-rails
   lol_dba
