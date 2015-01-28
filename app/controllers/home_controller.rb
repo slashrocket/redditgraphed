@@ -4,5 +4,10 @@ class HomeController < ApplicationController
     @subscriber = Subscriber.title_score_hash
     # Sort by upvote count (the value of hash)
     @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
+    #timeframes allowed in current dropdown list
+    @timeframe = {'now': 0, '5 minutes': 5, '30 minutes': 30, '1 hour': 60, '6 hours': 360, '12 hours': 720, '24 hours': 1440]
+  end
+
+  def timeframe
   end
 end

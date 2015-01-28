@@ -1,3 +1,24 @@
 <div class="row">
+  <div class="col-sm-2">
+    <h4 class="display-inline-block">View Timeframe: </h4>
+  </div>
+  <div class="col-sm-5 margin-vertical-10">
+    <%= select 'home', 'timeframe',  @timeframe, {:class => "form-control", :remote => true}  %>
+  </div>
+</div>
+
+<!-- clears timeframe dropdown -->
+<script>
+  $('#home_timeframe').prop('selectedIndex', 0);
+</script>
+
+<div class="row">
   <%= render partial: 'chartdata' %>
 </div>
+
+<!-- on timeframe dropdown change, update things -->
+<script>
+  $("#home_timeframe").change(function(){
+  $.get("/home/timeframe/" + $("#home_timeframe").val());
+});
+</script>
