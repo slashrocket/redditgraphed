@@ -27,6 +27,9 @@ class Subscriber < ActiveRecord::Base
   #get the top ten title score has for past x number of minutes
 
   def self.title_score_hash_timeframe(x)
+    if x.to_i == 0 or x.nil?
+      return title_score_hash
+    end
     ten_hash = {}
     topten = Subscriber.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9]
     topten.each do |t|
