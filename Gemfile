@@ -43,7 +43,7 @@ gem 'redditkit'
 group :development, :test do
   gem 'quiet_assets' # Turns off the Rails asset pipeline log
   gem 'bullet' #help reduce sql query speeds
-  gem 'lol_dba'
-  gem 'rails_best_practices'
+  gem 'lol_dba' #helps scan for better indexing
+  gem 'rails_best_practices' #helps scan for rails best practices in code
 end
 
