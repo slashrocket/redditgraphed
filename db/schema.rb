@@ -19,8 +19,8 @@ ActiveRecord::Schema.define(version: 20150120204739) do
   create_table "subscribers", force: :cascade do |t|
     t.integer  "count"
     t.text     "subreddit"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
     t.text     "title"
     t.text     "author"
     t.text     "permalink"

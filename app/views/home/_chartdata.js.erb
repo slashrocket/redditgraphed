@@ -2,7 +2,8 @@ $(document).ready(function() {
 var subscribersdata = {
     labels: [
       <% @subscribersorted.each_pair do |x, y| %>
-        "<%= truncate(x, length: 20, escape: false) %>",
+        <% z = x.gsub('"','') %>
+        "<%= truncate(z, length: 20, escape: false) %>",
       <% end %>
     ],
     datasets: [
