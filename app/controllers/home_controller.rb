@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     #get the timeframe we'll be using in minutes from the url
     @time_in_minutes = params[:time]
     # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
-    @subscriber = Subscriber.title_score_hash
+    @subscriber = Subscriber.title_score_hash_timeframe(@time_in_minutes)
     # Sort by upvote count (the value of hash)
     @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
     #render the new results on the page

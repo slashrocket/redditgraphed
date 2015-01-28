@@ -1,7 +1,7 @@
 class Subscriber < ActiveRecord::Base
   # Creates array of top ten posts from reddit's front page. Each post has attributes in a hash.
   def self.top_ten
-    front = RedditKit.front_page(options = {:limit => 10})
+    @front = RedditKit.front_page(options = {:limit => 10})
   end
 
   # Saves each individual post as a new record to db
@@ -10,10 +10,7 @@ class Subscriber < ActiveRecord::Base
       new_sub = Subscriber.new
       new_sub.title = post.title
       new_sub.count = post.score
-      new_sub.author = post.author
       new_sub.subreddit = post.subreddit
-      new_sub.permalink = post.permalink
-      new_sub.post_created_at = post.created_at
       new_sub.save!
     end
   end
@@ -27,10 +24,14 @@ class Subscriber < ActiveRecord::Base
     return ten_hash
   end
 
-  def self.last_half_hour
-    @last_thirty = []
-    Subscriber.where(created_at: Time.now.utc - 30.minute..Time.now.utc).find_each do |s|
-      # ???
+  #get the top ten title score has for past x number of minutes
+
+  def self.title_score_hash_timeframe(x)
+    ten_hash = {}
+    Subscriber.where('created_at > ?', Time.now.utc - x.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9]
+    top_ten.each do |t|
+      ten_hash["#{t.title}"] = t.score
     end
+    return ten_hash
   end
 end
