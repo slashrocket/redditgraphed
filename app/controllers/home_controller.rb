@@ -27,6 +27,6 @@ class HomeController < ApplicationController
     # Sort by upvote count (the value of hash)
     @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
     #render the new results on the page
-    render partial: 'home/chartdata.js.erb'
+    render partial: 'home/chartdetails.js.erb'
   end
 end
