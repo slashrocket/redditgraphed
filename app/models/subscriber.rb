@@ -24,13 +24,13 @@ class Subscriber < ActiveRecord::Base
     return ten_hash
   end
 
-  #get the top ten title score has for past x number of minutes
+  # Get the top ten title score has for past x number of minutes
   def self.title_score_hash_timeframe(x)
-    #check if the number of minutes is 0 or null and just return the latest from reddit right now
+    # Check if the number of minutes is 0 or null and just return the latest from reddit right now
     if x.to_i == 0 or x.nil?
       return title_score_hash
     end
-    #if the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
+    # If the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
     ten_hash = {}
     topten = Subscriber.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9]
     topten.each do |t|
