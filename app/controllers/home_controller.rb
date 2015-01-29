@@ -16,6 +16,17 @@ class HomeController < ApplicationController
     # Sort by upvote count (the value of hash)
     @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
     #render the new results on the page
-    render partial: 'home/timeframe.js.erb'
+    render partial: 'home/chartdata.js.erb'
+  end
+
+  def title
+    #get the title we'll be using from the url
+    @title = params[:title]
+    # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
+    @subscriber = Subscriber.title_score_hash
+    # Sort by upvote count (the value of hash)
+    @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
+    #render the new results on the page
+    render partial: 'home/chartdata.js.erb'
   end
 end

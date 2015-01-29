@@ -1,5 +1,5 @@
 <div class="row">
-<div class="col-sm-12" id="subscriberschartcontainer">
+<div class="col-sm-10 col-sm-offset-1" id="subscriberschartcontainer">
   <h3>Top 10 reddit posts: <%= select 'home', 'timeframe',  @timeframe, {:class => "form-control", :remote => true}  %></h3>
   <canvas id="subscriberschart"></canvas>
 </div>

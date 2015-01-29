@@ -1,9 +1,9 @@
 $(document).ready(function() {
+
 var subscribersdata = {
     labels: [
       <% @subscribersorted.each_pair do |x, y| %>
-        <% z = x.gsub('"','') %>
-        "<%= truncate(z, length: 20, escape: false) %>",
+        "<%= x.gsub('"', '').html_safe %>",
       <% end %>
     ],
     datasets: [
@@ -66,10 +66,24 @@ var subscribersoptions = {
     datasetStrokeWidth : 2,
 
     //Boolean - Whether to fill the dataset with a colour
-    datasetFill : true
+    datasetFill : true,
 
+    //Start the scale at 0 instead of the lowest upvote count
+    scaleBeginAtZero: true
 };
 
+//remake the line chart to fix the label issue, this shouldn't be required but chart.js sux
+  Chart.types.Line.extend({
+     name : "AltLine",
+
+     initialize : function(data) {
+        Chart.types.Line.prototype.initialize.apply(this, arguments);
+        this.scale.draw = function() {
+           this.endPoint = this.height - 10;
+           Chart.Scale.prototype.draw.apply(this, arguments);
+        };
+     }
+  });
 
 //ugly hack to clear old chart on refresh
   $('#subscriberschart').remove();
@@ -79,8 +93,15 @@ var subscribersoptions = {
 var cty = document.getElementById("subscriberschart").getContext("2d");
 cty.canvas.width  = $('#subscriberschartcontainer').innerWidth() - 50;
 cty.canvas.height  = "300";
+var SubscribersChart = new Chart(cty).AltLine(subscribersdata, subscribersoptions);
 
-var SubscribersChart = new Chart(cty).Line(subscribersdata, subscribersoptions);
+//on click of a point on the chart, do something
+cty.canvas.onclick = function(evt){
+    var activePoints = SubscribersChart.getPointsAtEvent(evt);
+    // => activePoints is an array of points on the canvas that are at the same position as the click event.
+    // Ex. activePoints[0].label will give you the label of the currently clicked on point
+    $.post( "title", {title: activePoints[0].label});
+};
 
 var doughnutoptions = {
     //Boolean - Whether we should show a stroke on each segment
