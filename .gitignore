@@ -17,5 +17,6 @@
 
 # Ignore cloud9 stuff
 /.c9
+.c9
 
 dump.rdb
