@@ -92,8 +92,26 @@ var baroptions = {
     barDatasetSpacing : 1
 }
 
+//figure out the day of the week so we can base our chart labels on today
+var d = new Date();
+var weekday = new Array(7);
+weekday[-6] = "Monday";
+weekday[-5] = "Tuesday";
+weekday[-4] = "Wednesday";
+weekday[-3] = "Thursday";
+weekday[-2] = "Friday";
+weekday[-1] = "Saturday";
+weekday[0]=  "Sunday";
+weekday[1] = "Monday";
+weekday[2] = "Tuesday";
+weekday[3] = "Wednesday";
+weekday[4] = "Thursday";
+weekday[5] = "Friday";
+weekday[6] = "Saturday";
+
 var bardata = {
-    labels: ["January", "February", "March", "April", "May", "June", "July"],
+//label each day of the week by subtracting a day from today and then matching it to the above array
+    labels: [weekday[d.getDay() - 6], weekday[d.getDay() - 5], weekday[d.getDay() - 4], weekday[d.getDay() - 3], weekday[d.getDay() - 2], weekday[d.getDay() - 1], weekday[d.getDay()]],
     datasets: [
         {
             label: "My First dataset",
