@@ -15,4 +15,4 @@
 # Ignore database.yml
 /config/database.yml
 
-dumb.rdb
+dump.rdb
