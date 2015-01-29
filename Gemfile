@@ -1,5 +1,4 @@
 source 'https://rubygems.org'
-ruby '2.1.2'
 
 # Bundle edge Rails instead: gem 'rails', github: 'rails/rails'
 gem 'rails', '4.2.0'
@@ -12,7 +11,7 @@ gem 'bootstrap-sass'
 #for nice icons
 gem 'font-awesome-rails'
 #for mikes shitty dev box fix
-gem "puma"
+#gem "puma"
 #for background jobs
 gem 'sidekiq'
 #for sidekiq db support stuff
