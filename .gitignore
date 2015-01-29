@@ -15,4 +15,7 @@
 # Ignore database.yml
 /config/database.yml
 
+# Ignore cloud9 stuff
+/.c9
+
 dump.rdb
