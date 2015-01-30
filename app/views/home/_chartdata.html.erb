@@ -1,6 +1,6 @@
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1" id="subscriberschartcontainer">
-  <h3>Top 10 reddit posts: <%= select 'home', 'timeframe',  @timeframe, {:class => "form-control", :remote => true}  %></h3>
+  <h3>I want to see the top ten reddit posts for the past... <%= select 'home', 'timeframe',  @timeframe, {:class => "form-control", :remote => true}  %></h3>
   <canvas id="subscriberschart"></canvas>
 </div>
 </div>
@@ -8,8 +8,24 @@
 <div id="chartdetailscontainer">
   <div id="chartdetails">
     <!-- put some basic how-to instructions here, they will be gone when a point on the graph is clicked -->
+    <div class="row">
+      <div class="col-sm-8 col-sm-offset-2" align="center">
+        <h3>Hover over a point on the chart to see that posts title</h3>
+        <h3>Click on a point on the chart to view detailed information about that post</h3>
+      </div>
+    </div>
+    <!-- end how-to guide details etc section -->
   </div>
 </div>
+
+<!-- on timeframe dropdown change, update things -->
 <script>
+  $("#home_timeframe").change(function(){
+  $.post( "timeframe", {time: $("#home_timeframe").val()});
+});
+</script>
+
+<script>
+  //render the big line chart listing the top ten subreddits via chart.js
   <%= render 'chartdata.js.erb' %>
 </script>

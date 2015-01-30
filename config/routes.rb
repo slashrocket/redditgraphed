@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   get 'home/index'
   root 'home#index'
-  match '/timeframe/:time', to: 'home#timeframe', via: 'get', as: 'timeframe'
+  match '/timeframe', to: 'home#timeframe', via: 'post', as: 'timeframe'
   match '/title', to: 'home#title', via: 'post', as: 'title'
 end

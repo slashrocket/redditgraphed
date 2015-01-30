@@ -6,10 +6,3 @@
 <div class="row">
   <%= render partial: 'chartdata' %>
 </div>
-
-<!-- on timeframe dropdown change, update things -->
-<script>
-  $("#home_timeframe").change(function(){
-  $.get("/timeframe/" + $("#home_timeframe").val());
-});
-</script>
