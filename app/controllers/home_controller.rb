@@ -29,6 +29,6 @@ class HomeController < ApplicationController
     # Find all records that have same title as passed param
     @post_title = Subscriber.where("title == ?", params[:title])
     # Render the new results on the page
-    render partial: 'home/chartdetails.js.erb'
+    render partial: 'home/renderchartdetails.js.erb'
   end
 end

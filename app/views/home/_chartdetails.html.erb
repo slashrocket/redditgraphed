@@ -1,0 +1,17 @@
+<div class="row" id="chartdetails">
+  <div class="col-sm-4" id="doughnutchartcontainer">
+    <h3>Top subreddits</h3>
+    <canvas id="doughnutchart"></canvas>
+  </div>
+  <div class="col-sm-4" id="barchartcontainer">
+    <h3>Popularity for the past week</h3>
+    <canvas id="barchart"></canvas>
+  </div>
+  <div class="col-sm-4" id="polarchartcontainer">
+    <h3>Popularity per hour</h3>
+    <canvas id="polarchart"></canvas>
+  </div>
+</div>
+<script>
+  <%= render partial: 'chartdetails.js.erb' %>
+</script>
