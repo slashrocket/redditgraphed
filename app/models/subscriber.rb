@@ -8,7 +8,7 @@ class Subscriber < ActiveRecord::Base
   def self.save_top_ten
     Subscriber.top_ten.each do |post|
       new_sub = Subscriber.new
-      new_sub.title = post.title
+      new_sub.title = post.title.html_safe
       new_sub.count = post.score
       new_sub.subreddit = post.subreddit
       new_sub.save!
