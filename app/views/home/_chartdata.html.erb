@@ -1,6 +1,13 @@
 <div class="row">
 <div class="col-sm-10 col-sm-offset-1" id="subscriberschartcontainer">
   <h3>I want to see the top ten reddit posts for the past... <%= select 'home', 'timeframe',  @timeframe, {:class => "form-control", :remote => true}  %></h3>
+  <div id="subscriberschartspinner" class="spinner spinneroff">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
   <canvas id="subscriberschart"></canvas>
 </div>
 </div>
@@ -21,6 +28,9 @@
 <!-- on timeframe dropdown change, update things -->
 <script>
   $("#home_timeframe").change(function(){
+  $("#subscriberschart").addClass('transparent')
+  $("#subscriberschartspinner").removeClass('spinneroff')
+  $("#subscriberschartspinner").addClass('spinneron')
   $.post( "timeframe", {time: $("#home_timeframe").val()});
 });
 </script>
