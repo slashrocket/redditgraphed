@@ -1,13 +1,11 @@
 class HomeController < ApplicationController
   def index
     # Get the top 10 posts on the front page in the format of {title: upvotes}
-    @subscriber = Subscriber.title_score_hash
-    # Sort by upvote count (the value of hash)
-    @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
+    @subscribersorted = Subscriber.hashify(Subscriber.top_ten)
     # Timeframes allowed in current dropdown list
     @timeframe = {'minute' => 2, '5 minutes' => 5, '30 minutes' => 30, '1 hour' => 60, '6 hours' => 360, '12 hours' => 720, '24 hours' => 1440}
   end
-  
+
   def timeframe
     # Get the timeframe we'll be using in minutes from the url
     @time_in_minutes = params[:time]
@@ -26,10 +24,16 @@ class HomeController < ApplicationController
   def title
     # Get the title we'll be using from the url
     @title = params[:title]
+    # Find all DB entries matching the title
+    postsfound = Subscriber.where("title == ?", @title) rescue nil #<---- this should be moved to the model i think
+
+    #if an error occured or we couldnt find anything, alert the user
+    if postsfound.nil?
+      return render partial: 'home/nodata.js.erb'
+    end
+    
     # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
-    @subscriber = Subscriber.title_score_hash
-    # Sort by upvote count (the value of hash)
-    @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
+    @subscribersorted = Subscriber.hashify(Subscriber.top_ten)
     # Find all records that have same title as passed param
     @post_title = Subscriber.where("title == ?", params[:title])
     # Render the new results on the page
