@@ -25,15 +25,16 @@ class HomeController < ApplicationController
     # Get the title we'll be using from the url
     @title = params[:title]
     # Find all DB entries matching the title
-    postsfound = Subscriber.where("title == ?", @title) rescue nil #<---- this should be moved to the model i think
-    @op = postsfound.first.author
-    @subreddit_name = postsfound.first.subreddit
-    @op_subreddit_data = Subscriber.doughnut_data(@title)
+    postsfound = Subscriber.where("title = ?", @title) rescue nil #<---- this should be moved to the model i think
 
     #if an error occured or we couldnt find anything, alert the user
     if postsfound.nil?
       return render partial: 'home/nodata.js.erb'
     end
+
+    @op = postsfound.first.author
+    @subreddit_name = postsfound.first.subreddit
+    @op_subreddit_data = Subscriber.doughnut_data(@title)
 
     # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
     @subscribersorted = Subscriber.hashify(Subscriber.top_ten)
