@@ -1,10 +1,10 @@
 <div class="row" id="chartdetails">
   <div class="col-sm-4" id="doughnutchartcontainer">
-    <h3>Top subreddits for <%= @op %></h3>
+    <h3>Top subreddits for <a href="http://www.reddit.com/u/<%= @op %>" target="_blank"><%= @op %></a></h3>
     <canvas id="doughnutchart"></canvas>
   </div>
   <div class="col-sm-4" id="barchartcontainer">
-    <h3>Popularity for the past week</h3>
+    <h3>Popularity of <a href="http://www.reddit.com/r/<%= @subreddit_name %>" target="_blank">/r/<%= @subreddit_name %></a> for the past week</h3>
     <canvas id="barchart"></canvas>
   </div>
   <div class="col-sm-4" id="polarchartcontainer">
