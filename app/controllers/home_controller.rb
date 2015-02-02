@@ -24,12 +24,11 @@ class HomeController < ApplicationController
   def title
     # Get the title we'll be using from the url
     @title = params[:title]
-    databytitle = Subscriber.find_by_title(@title)
-    @op = databytitle.author
-    @subreddit_name = databytitle.subreddit
-    @op_subreddit_data = Subscriber.doughnut_data(@title)
     # Find all DB entries matching the title
     postsfound = Subscriber.where("title == ?", @title) rescue nil #<---- this should be moved to the model i think
+    @op = postsfound.first.author
+    @subreddit_name = postsfound.first.subreddit
+    @op_subreddit_data = Subscriber.doughnut_data(@title)
 
     #if an error occured or we couldnt find anything, alert the user
     if postsfound.nil?
