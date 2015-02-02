@@ -54,10 +54,7 @@ class Subscriber < ActiveRecord::Base
     op = Subscriber.find_by_title(title).author #find the author based on the title
     op_posts = Subscriber.where("author = ?", op) #get all op's posts
     op_posts_unique = op_posts.to_a.uniq{ |item| item.title } #only get unique posts
-    op_subreddits = []
-    op_posts_unique.each do |x|
-      op_subreddits += [x.subreddit]
-    end
+    op_subreddits = op_posts_unique.map(&:subreddit)
     #count the number of similar subreddits
     countsubreddits = Hash.new 0
     op_subreddits.each { |word| countsubreddits[word] += 1 } #iterate through the array, adding +1 each time a same subreddit is seen
