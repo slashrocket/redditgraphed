@@ -24,8 +24,9 @@ class HomeController < ApplicationController
   def title
     # Get the title we'll be using from the url
     @title = params[:title]
-    @op = Subscriber.find_by_title(@title).author
-    @subreddit_name = Subscriber.find_by_title(@title).subreddit
+    databytitle = Subscriber.find_by_title(@title)
+    @op = databytitle.author
+    @subreddit_name = databytitle.subreddit
     @op_subreddit_data = Subscriber.doughnut_data(@title)
     # Find all DB entries matching the title
     postsfound = Subscriber.where("title == ?", @title) rescue nil #<---- this should be moved to the model i think
