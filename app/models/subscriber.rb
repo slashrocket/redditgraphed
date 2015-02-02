@@ -58,7 +58,7 @@ class Subscriber < ActiveRecord::Base
     #count the number of similar subreddits
     countsubreddits = Hash.new 0
     op_subreddits.each { |word| countsubreddits[word] += 1 } #iterate through the array, adding +1 each time a same subreddit is seen
-    return op_subreddits_counted #return the hashed results
+    return countsubreddits #return the hashed results
   end
 
   def self.hashify_deux(x, k, v)
