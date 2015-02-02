@@ -36,10 +36,6 @@ class HomeController < ApplicationController
     @subreddit_name = postsfound.first.subreddit
     @op_subreddit_data = Subscriber.doughnut_data(@title)
 
-    # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
-    @subscribersorted = Subscriber.hashify(Subscriber.top_ten)
-    # Find all records that have same title as passed param
-    @post_title = Subscriber.where("title == ?", params[:title])
     # Render the new results on the page
     render partial: 'home/renderchartdetails.js.erb'
   end
