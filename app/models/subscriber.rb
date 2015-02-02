@@ -7,7 +7,7 @@ class Subscriber < ActiveRecord::Base
 
   # Saves each individual post as a new record to db -- this is run every 1 minute as a sidekiq job
   def self.save_top_ten
-    Subscriber.top_ten.each do |post|
+    self.top_ten.each do |post|
       new_sub = Subscriber.new
       new_sub.title = post.title.html_safe
       new_sub.count = post.score
@@ -24,7 +24,7 @@ class Subscriber < ActiveRecord::Base
     end
     # If the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
     ten_hash = {}
-    topten = Subscriber.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9] rescue nil
+    topten = self.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9] rescue nil
     if !topten.nil?
       topten.each do |t|
         ten_hash["#{t.title}"] = t.count
@@ -43,7 +43,7 @@ class Subscriber < ActiveRecord::Base
   end
 
   def self.clicked_post(title)
-    postsfound = Subscriber.where("title LIKE ?", title) rescue nil
+    postsfound = self.where("title LIKE ?", title) rescue nil
   end
 
 
