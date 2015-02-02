@@ -24,6 +24,8 @@ class HomeController < ApplicationController
   def title
     # Get the title we'll be using from the url
     @title = params[:title]
+
+    @op_subreddit_data = Subscriber.doughnut_data(@title)
     # Find all DB entries matching the title
     postsfound = Subscriber.where("title == ?", @title) rescue nil #<---- this should be moved to the model i think
 
@@ -31,7 +33,7 @@ class HomeController < ApplicationController
     if postsfound.nil?
       return render partial: 'home/nodata.js.erb'
     end
-    
+
     # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
     @subscribersorted = Subscriber.hashify(Subscriber.top_ten)
     # Find all records that have same title as passed param
