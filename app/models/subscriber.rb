@@ -58,14 +58,7 @@ class Subscriber < ActiveRecord::Base
     #count the number of similar subreddits
     countsubreddits = Hash.new 0
     op_subreddits.each { |word| countsubreddits[word] += 1 } #iterate through the array, adding +1 each time a same subreddit is seen
-    op_subreddits_counted = Hash[countsubreddits.sort_by{|k, v| v}] #sort the counts highest to lowest based on results count
-
-    return op_subreddits_counted #<----- remove me, just for testing
-
-    hash = {}
-    op_posts.each do |x|
-      hash["#{x.subreddit}"]
-    end
+    return op_subreddits_counted #return the hashed results
   end
 
   def self.hashify_deux(x, k, v)
