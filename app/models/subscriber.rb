@@ -60,12 +60,4 @@ class Subscriber < ActiveRecord::Base
     op_subreddits.each { |word| countsubreddits[word] += 1 } #iterate through the array, adding +1 each time a same subreddit is seen
     return countsubreddits #return the hashed results
   end
-
-  def self.hashify_deux(x, k, v)
-    hash = {}
-    x.each do |t|
-      hash["#{t.k}"] = t.v
-    end
-    return hash
-  end
 end
