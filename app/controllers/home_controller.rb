@@ -25,14 +25,12 @@ class HomeController < ApplicationController
     # Get the title we'll be using from the url
     @title = params[:title]
     # Find all DB entries matching the title
-    postsfound = Subscriber.where("title = ?", @title) rescue nil #<---- this should be moved to the model i think
-
+    postsfound = Subscriber.where("title = ?", @title) rescue nil
     #if an error occured or we couldnt find anything, alert the user
-    if !postsfound.present?
-      return render partial: 'home/nodata.js.erb'
-    end
-
+    if !postsfound.present? then return render partial: 'home/nodata.js.erb' end
+    #get data for detailed charts
     @op = postsfound.last.author
+    if !@op.present? then return render partial: 'home/nodata.js.erb' end
     @subreddit_name = postsfound.first.subreddit
     @op_subreddit_data = Subscriber.user_top_posts(@op)
 
