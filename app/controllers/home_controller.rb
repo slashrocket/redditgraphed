@@ -28,13 +28,13 @@ class HomeController < ApplicationController
     postsfound = Subscriber.where("title = ?", @title) rescue nil #<---- this should be moved to the model i think
 
     #if an error occured or we couldnt find anything, alert the user
-    if postsfound.nil?
+    if !postsfound.present?
       return render partial: 'home/nodata.js.erb'
     end
 
-    @op = postsfound.first.author
+    @op = postsfound.last.author
     @subreddit_name = postsfound.first.subreddit
-    @op_subreddit_data = Subscriber.doughnut_data(@title)
+    @op_subreddit_data = Subscriber.user_top_posts(@op)
 
     # Render the new results on the page
     render partial: 'home/renderchartdetails.js.erb'

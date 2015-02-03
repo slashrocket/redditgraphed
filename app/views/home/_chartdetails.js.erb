@@ -29,23 +29,29 @@ var doughnutoptions = {
 
 var doughnutdata = [
     {
-        value: 300,
+value: <%= @op_subreddit_data.first.second %>,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
-    },
+label: "<%= @op_subreddit_data.first.first %>"
+    }
+    <% if @op_subreddit_data.count > 1 %>
+    ,
     {
-        value: 50,
+value: <%= @op_subreddit_data.second.second %>,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "Green"
-    },
+label: "<%= @op_subreddit_data.second.first %>"
+    }
+    <% end %>
+    <% if @op_subreddit_data.count > 2 %>
+    ,
     {
-        value: 100,
+value: <%= @op_subreddit_data.third.second %>,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Yellow"
+label: "<%= @op_subreddit_data.third.first %>"
     }
+    <% end %>
 ]
 
 
