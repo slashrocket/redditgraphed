@@ -46,18 +46,15 @@ class Subscriber < ActiveRecord::Base
     postsfound = self.where("title LIKE ?", title) rescue nil
   end
 
-
-# EXPERIMENTAL
-
-  #test me with:   Subscriber.doughnut_data(Subscriber.last.title)
+  # Test me with: Subscriber.doughnut_data(Subscriber.last.title)
   def self.doughnut_data(title)
-    op = self.find_by_title(title).author #find the author based on the title
-    op_posts = self.where("author = ?", op) #get all op's posts
-    op_posts_unique = op_posts.to_a.uniq{ |item| item.title } #only get unique posts
+    op = self.find_by_title(title).author # Find the author based on the title
+    op_posts = self.where("author = ?", op) # Get all op's posts
+    op_posts_unique = op_posts.to_a.uniq{ |item| item.title } # Only get unique posts
     op_subreddits = op_posts_unique.map(&:subreddit)
-    #count the number of similar subreddits
+    # Count the number of similar subreddits
     countsubreddits = Hash.new 0
-    op_subreddits.each { |word| countsubreddits[word] += 1 } #iterate through the array, adding +1 each time a same subreddit is seen
-    return countsubreddits #return the hashed results
+    op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
+    return countsubreddits # Return the hashed results
   end
 end
