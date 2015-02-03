@@ -69,4 +69,17 @@ class Subscriber < ActiveRecord::Base
     op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
     return countsubreddits # Return the hashed results
   end
+
+  # Test me with: Subscriber.subreddit_popularity(Subscriber.last.subreddit, 7)
+  def self.subreddit_popularity(subreddit, days)
+    all_posts = self.where("subreddit = ? AND created_at > ?", subreddit, Time.now.utc - days.to_i.days)
+    all_posts_unique = all_posts.to_a.uniq{ |item| item.title } # Only get unique posts
+    subreddits = all_posts_unique.map(&:subreddit)
+    # Count the number of similar subreddits
+    results = {}
+    while days > 0
+      results["#{t.title}"] = t.score
+    end
+    return results
+  end
 end

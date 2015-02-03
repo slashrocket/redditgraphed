@@ -33,6 +33,9 @@ class HomeController < ApplicationController
     if !@op.present? then return render partial: 'home/nodata.js.erb' end
     @subreddit_name = postsfound.first.subreddit
     @op_subreddit_data = Subscriber.user_top_posts(@op)
+    @subreddit_popularity = Subscriber.subreddit_popularity(@subreddit_name, 7)
+      @subreddit_popularity_formatted = []
+      @subreddit_popularity_formatted = @subreddit_popularity.each.value
 
     # Render the new results on the page
     render partial: 'home/renderchartdetails.js.erb'
