@@ -72,13 +72,16 @@ class Subscriber < ActiveRecord::Base
 
   # Test me with: Subscriber.subreddit_popularity(Subscriber.last.subreddit, 7)
   def self.subreddit_popularity(subreddit, days)
-    all_posts = self.where("subreddit = ? AND created_at > ?", subreddit, Time.now.utc - days.to_i.days)
+    days = days.to_i
+    day = Time.now.utc - days.days
+    all_posts = self.where("subreddit = ? AND created_at > ?", subreddit, day)
     all_posts_unique = all_posts.to_a.uniq{ |item| item.title } # Only get unique posts
     subreddits = all_posts_unique.map(&:subreddit)
     # Count the number of similar subreddits
     results = {}
-    while days > 0
-      results["#{t.title}"] = t.score
+    (days..0).each do
+      todaysposts = all_posts_unique.where('created_at > ? AND created_at < ?', day, day - 1.days).count
+      results[days] = todaysposts
     end
     return results
   end
