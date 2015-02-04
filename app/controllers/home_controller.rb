@@ -34,8 +34,10 @@ class HomeController < ApplicationController
     @subreddit_name = postsfound.first.subreddit
     @op_subreddit_data = Subscriber.user_top_posts(@op)
     @subreddit_popularity = Subscriber.subreddit_popularity(@subreddit_name, 7)
-      @subreddit_popularity_formatted = []
-      #@subreddit_popularity_formatted = @subreddit_popularity.each.value
+    @subreddit_popularity_formatted = []
+    @subreddit_popularity.each do |x|
+      @subreddit_popularity_formatted += [x.second]
+    end
 
     # Render the new results on the page
     render partial: 'home/renderchartdetails.js.erb'
