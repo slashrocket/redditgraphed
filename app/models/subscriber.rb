@@ -80,7 +80,8 @@ class Subscriber < ActiveRecord::Base
     # Count the number of similar subreddits
     results = {}
     while days > 0 do
-      todaysposts = all_posts.where('created_at > ? AND created_at < ?', Time.now.utc - days, Time.now.utc - days - 1.days).count
+      iteration_days = Time.now.utc - days
+      todaysposts = all_posts.where('created_at > ? AND created_at < ?', iteration_days, iteration_days - 1.days).count
       results[days] = todaysposts
       days -= 1
     end
