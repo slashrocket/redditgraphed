@@ -70,22 +70,14 @@ class Subscriber < ActiveRecord::Base
     return countsubreddits # Return the hashed results
   end
 
-  # Test me with: Subscriber.subreddit_popularity(Subscriber.last.subreddit, 7)
-  def self.subreddit_popularity(subreddit, days)
-    days = days.to_i
-    day = Time.now.utc - days.days
-    all_posts = self.where("subreddit = ? AND created_at > ?", subreddit, day)
-    all_posts_unique = all_posts.to_a.uniq{ |item| item.title } # Only get unique posts
-    subreddits = all_posts_unique.map(&:subreddit)
-    # Count the number of similar subreddits
-    results = {}
-    while days >= 0 do
-      iteration_days = Time.now.utc - days.days
-      todaysposts = all_posts.where('created_at < ? AND created_at > ?', iteration_days, iteration_days - 1.days)
-      todayspostsunique = todaysposts.to_a.uniq{ |item| item.title } # Only get unique posts
-      results[days] = todayspostsunique.count
-      days -= 1
-    end
-    return results
+  # Return array containing days of the week(as a number) and the number of times that subreddit appeared that day.
+  def self.subreddit_popularity(subreddit, days = 7)
+    # Begining of the past week.
+    start_date = days.days.ago.midnight
+    sql_query = "subreddit = '#{subreddit}' AND created_at > '#{days.days.ago.midnight}'"
+    # Return unsorted hash: date => number of appearance
+    hash_result = self.where(sql_query).select(:title).uniq.group("DATE(created_at)").count
+    # Sort by date, replace date with number (7 is the oldest day, 1 is today) and return array with results
+    array_resul = hash_result.sort.each {|item| item[0] = days; days -= 1}
   end
 end
