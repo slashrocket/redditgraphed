@@ -12,6 +12,16 @@
         <i>reddit</i><b>graphed</b>
     	<% end %>
     </div>
+      <div class='searchnav'>
+        <%= form_for :search, url: searching_path do |f| %>
+        <div class="input-group">
+          <%= f.text_field :text, placeholder: "Search for...", class: 'form-control' %>
+          <span class="input-group-btn">
+            <%= f.submit "Go", class: 'btn btn-default' %>
+          </span>
+        </div>
+        <% end %>
+      </div>
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse">
     <!-- Top Menu Items -->
