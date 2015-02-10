@@ -1,9 +1,12 @@
 class SearchController < ApplicationController
+  require 'will_paginate/array'
+  
   def index
   end
 
   def results
-    searchfor = params[:search][:text]
-    @resultsfound = Subscriber.search searchfor.html_safe, page: params[:page], per_page: 5
+    @searchedfor = params[:search][:text]
+    @resultsfound = Subscriber.search @searchedfor.html_safe, limit: 100
+    @resultsfoundunique = @resultsfound.to_a.uniq{ |item| item.title }
   end
 end

@@ -1,2 +1,6 @@
-<h1> Search results </h1>
-<%= will_paginate @resultsfound %>
+<h1> Search results for <i><%= @searchedfor %></i></h1>
+<% @resultsfoundunique.each do |x| %>
+<hr/>
+  <%= x.title %>
+<br/>
+<% end %>
