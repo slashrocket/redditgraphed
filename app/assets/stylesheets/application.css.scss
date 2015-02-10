@@ -6,3 +6,10 @@
 // "bootstrap-sprockets" must be imported before "bootstrap" and "bootstrap/variables"
 @import "bootstrap-sprockets";
 @import "bootstrap";
+
+//pretty google font noto serif -- IMPORT ME DIRECTLY IF GOING TO PROD
+@import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,100,300,500,700,900);
+
+body {
+  font-family: 'Roboto', sans-serif;
+}
