@@ -7,6 +7,9 @@
 @import "bootstrap-sprockets";
 @import "bootstrap";
 
+//this should be moved to a proper css.scss file instead of being dumped at the bottom of application.css
+//it MUST override bootstraps default css stuff
+
 //pretty google font noto serif -- IMPORT ME DIRECTLY IF GOING TO PROD
 @import url(http://fonts.googleapis.com/css?family=Roboto:400,400italic,100,300,500,700,900);
 
