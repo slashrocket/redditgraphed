@@ -1,5 +1,5 @@
 class Subscriber < ActiveRecord::Base
-
+  searchkick #import searchkick gem into this model
   # Creates array of top ten posts from reddit's front page. Each post has attributes in a hash.
   def self.top_ten
     return RedditKit.front_page(options = {:limit => 10})

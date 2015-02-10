@@ -2,7 +2,7 @@ Rails.application.routes.draw do
   ##### SEARCH PATHS
   get 'search/index'
   get 'search/results'
-  match '/search', to: 'search#searching', via: 'post', as: 'searching'
+  match 'search/results', to: 'search#results', via: 'post', as: 'searching'
 
   ##### HOME PATHS
   get 'home/index'
