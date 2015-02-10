@@ -13,6 +13,8 @@ class Subscriber < ActiveRecord::Base
       new_sub.count = post.score
       new_sub.subreddit = post.subreddit
       new_sub.author = post.author
+      new_sub.permalink = post.permalink
++     new_sub.post_created_at = post.created_at
       new_sub.save!
     end
   end
