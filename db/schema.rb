@@ -11,10 +11,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150120204739) do
+ActiveRecord::Schema.define(version: 20150211183451) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "scores", force: :cascade do |t|
+    t.integer  "score"
+    t.integer  "subscriber_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+  end
+
+  add_index "scores", ["subscriber_id"], name: "index_scores_on_subscriber_id", using: :btree
 
   create_table "subscribers", force: :cascade do |t|
     t.integer  "count"
@@ -27,4 +36,5 @@ ActiveRecord::Schema.define(version: 20150120204739) do
     t.text     "post_created_at"
   end
 
+  add_foreign_key "scores", "subscribers"
 end
