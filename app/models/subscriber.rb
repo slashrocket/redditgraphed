@@ -1,4 +1,5 @@
 class Subscriber < ActiveRecord::Base
+  has_many :scores
   searchkick #import searchkick gem into this model
   # Creates array of top ten posts from reddit's front page. Each post has attributes in a hash.
   def self.top_ten
@@ -8,14 +9,19 @@ class Subscriber < ActiveRecord::Base
   # Saves each individual post as a new record to db -- this is run every 1 minute as a sidekiq job
   def self.save_top_ten
     self.top_ten.each do |post|
-      new_sub = Subscriber.new
-      new_sub.title = post.title.html_safe
-      new_sub.count = post.score
-      new_sub.subreddit = post.subreddit
-      new_sub.author = post.author
-      new_sub.permalink = post.permalink
-+     new_sub.post_created_at = post.created_at
-      new_sub.save!
+      if self.find_by_title(post.title)
+        new_score = Score.new
+        new_score.score = post.score
+        new_score.save!
+      else
+        new_sub = Subscriber.new
+        new_sub.title = post.title.html_safe
+        new_sub.subreddit = post.subreddit
+        new_sub.author = post.author
+        new_sub.permalink = post.permalink
+        new_sub.post_created_at = post.created_at
+        new_sub.save!
+      end
     end
   end
 
