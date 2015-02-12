@@ -45,6 +45,7 @@ gem 'redditkit'
 # for Heroku
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
+gem 'rails_12factor', group: :production
 
 
 group :development, :test do
