@@ -53,4 +53,5 @@ group :development, :test do
   gem 'lol_dba' #helps scan for better indexing
   gem 'rails_best_practices' #helps scan for rails best practices in code
   gem 'hirb' # Formats 'rails console' with tables. Activate with `require 'hirb'` then `Hirb.enable`
+  gem 'puma'
 end
