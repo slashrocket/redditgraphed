@@ -23,15 +23,13 @@ class HomeController < ApplicationController
 
   def title
     # Get the title we'll be using from the url
-    @title = params[:title]
-    # Find all DB entries matching the title
-    postsfound = Subscriber.where("title = ?", @title) rescue nil
+    @title = Subscriber.find_by_title(params[:title].html_safe)
     #if an error occured or we couldnt find anything, alert the user
-    if !postsfound.present? then return render partial: 'home/nodata.js.erb' end
+    if !@title.present? then return render partial: 'home/nodata.js.erb' end
     #get data for detailed charts
-    @op = postsfound.last.author
+    @op = @title.author
     if !@op.present? then return render partial: 'home/nodata.js.erb' end
-    @subreddit_name = postsfound.first.subreddit
+    @subreddit_name = @title.subreddit
     @op_subreddit_data = Subscriber.user_top_posts(@op)
     @subreddit_popularity = Subscriber.subreddit_popularity(@subreddit_name, 7)
     @subreddit_popularity_formatted = []

@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+
   ##### SEARCH PATHS
   get 'search/index'
   get 'search/results'
@@ -9,6 +10,9 @@ Rails.application.routes.draw do
   root 'home#index'
   match '/timeframe', to: 'home#timeframe', via: 'post', as: 'timeframe'
   match '/title', to: 'home#title', via: 'post', as: 'title'
+
+  ##### SHOW PATHS
+  match '/post/:title', to: 'post#show', via: 'get', as: 'post'
 
   ##### USER PATHS
 end
