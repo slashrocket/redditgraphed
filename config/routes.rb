@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   match '/post/:title', to: 'post#show', via: 'get', as: 'post'
 
   ##### USER PATHS
+  devise_for :users, controllers: { sessions: "users/sessions" }
 end
