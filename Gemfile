@@ -45,7 +45,6 @@ gem 'redditkit'
 # for Heroku
 gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
-gem 'bonsai-elasticsearch-rails'
 
 
 group :development, :test do
