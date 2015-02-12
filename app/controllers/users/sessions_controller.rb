@@ -16,6 +16,11 @@ class Users::SessionsController < Devise::SessionsController
   #   super
   # end
 
+  # The path used after sign in.
+  def after_sign_in_path_for(resource)
+    dashboard_path
+  end
+
   # protected
 
   # You can put the params you want to permit in the empty array.
