@@ -101,6 +101,6 @@ class Subscriber < ActiveRecord::Base
     # Return unsorted hash: date => number of appearance
     hash_result = self.where(sql_query).select(:title).group("DATE(created_at)").count
     # Sort by date, replace date with number (7 is the oldest day, 1 is today) and return array with results
-    array_resul = hash_result.sort.each {|item| item[0] = days; days -= 1}
+    array_result = hash_result.sort.each {|item| item[0] = days; days -= 1}
   end
 end
