@@ -1,5 +1,18 @@
 class Subscriber < ActiveRecord::Base
   has_many :scores
+
+  # Convert post title to friendly url format
+  def slug
+    title.downcase.gsub(" ", "-").parameterize
+  end
+
+  # Change default param for user from id to id-name for friendly urls.
+  # When finding in DB, Rails auto calls .to_i on param, which tosses
+  # name and doesn't cause any problems in locating user.
+  def to_param
+    "#{id}-#{slug}"
+  end
+
   searchkick #import searchkick gem into this model
   # Creates array of top ten posts from reddit's front page. Each post has attributes in a hash.
   def self.top_ten
