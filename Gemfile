@@ -42,6 +42,11 @@ gem 'redditkit'
 # Use Unicorn as the app server
 # gem 'unicorn'
 
+# for Heroku
+gem 'elasticsearch-model'
+gem 'elasticsearch-rails'
+
+
 group :development, :test do
   gem 'quiet_assets' # Turns off the Rails asset pipeline log
   gem 'bullet' #help reduce sql query speeds

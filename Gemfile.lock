@@ -72,6 +72,11 @@ GEM
       elasticsearch-transport (= 1.0.4)
     elasticsearch-api (1.0.4)
       multi_json
+    elasticsearch-model (0.1.6)
+      activesupport (> 3)
+      elasticsearch (> 0.4)
+      hashie
+    elasticsearch-rails (0.1.6)
     elasticsearch-transport (1.0.4)
       faraday
       multi_json
@@ -228,6 +233,8 @@ DEPENDENCIES
   bullet
   coffee-rails (~> 4.1.0)
   devise
+  elasticsearch-model
+  elasticsearch-rails
   font-awesome-rails
   hirb
   jbuilder (~> 2.0)
