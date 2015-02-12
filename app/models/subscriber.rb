@@ -6,13 +6,19 @@ class Subscriber < ActiveRecord::Base
     return RedditKit.front_page(options = {:limit => 10})
   end
 
-  # Saves each individual post as a new record to db -- this is run every 1 minute as a sidekiq job
+  # Saves each individual post as a new record to db -- this is run every 5 minute as a sidekiq job
   def self.save_top_ten
+    #get the top ten reddit posts and iterate through them as objects
     self.top_ten.each do |post|
-      if self.find_by_title(post.title)
+      #check if this post already exists in the database
+      foundindatabase = self.find_by_title(post.title.html_safe) rescue nil
+      #if its found, only save its current score
+      if foundindatabase.present?
         new_score = Score.new
+        new_score.subscriber_id = foundindatabase.id
         new_score.score = post.score
         new_score.save!
+      #if it isnt found, save it as a new subscriber and then save its score
       else
         new_sub = Subscriber.new
         new_sub.title = post.title.html_safe
@@ -21,7 +27,13 @@ class Subscriber < ActiveRecord::Base
         new_sub.permalink = post.permalink
         new_sub.post_created_at = post.created_at
         new_sub.save!
+        new_score = Score.new
+        new_score.subscriber_id = new_sub.id
+        new_score.score = post.score
+        new_score.save!
       end
+      #reset foundindatabase to nil so it doesnt try to reuse an old variable
+      foundindatabase = nil
     end
   end
 
