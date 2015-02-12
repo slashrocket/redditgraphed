@@ -4,3 +4,9 @@
   margin-bottom: -50px;
   width: 30%;
 }
+
+@media all and (max-width: 765px) {
+  .searchnav {
+    margin-top: -42px;
+  }
+}
