@@ -80,7 +80,7 @@ class Subscriber < ActiveRecord::Base
     op_posts = self.where("author = ?", op).pluck(:subreddit) # Get all op's posts
     # Count the number of similar subreddits
     countsubreddits = Hash.new 0
-    op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
+    op_posts.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
     return countsubreddits # Return the hashed results
   end
 
@@ -89,7 +89,7 @@ class Subscriber < ActiveRecord::Base
     op_posts = self.where("author = ?", author).pluck(:subreddit) # Get all op's posts
     # Count the number of similar subreddits
     countsubreddits = Hash.new 0
-    op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
+    op_posts.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
     return countsubreddits # Return the hashed results
   end
 
