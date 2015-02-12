@@ -18,6 +18,11 @@ class Subscriber < ActiveRecord::Base
         new_score.subscriber_id = foundindatabase.id
         new_score.score = post.score
         new_score.save!
+        #if the current score is higher than the saved score, save it as highest
+        if post.score > foundindatabase.count
+          foundindatabase.count = post.count
+          foundindatabase.save!
+        end
       #if it isnt found, save it as a new subscriber and then save its score
       else
         new_sub = Subscriber.new
@@ -26,6 +31,7 @@ class Subscriber < ActiveRecord::Base
         new_sub.author = post.author
         new_sub.permalink = post.permalink
         new_sub.post_created_at = post.created_at
+        new_sub.count = post.score
         new_sub.save!
         new_score = Score.new
         new_score.subscriber_id = new_sub.id
@@ -39,13 +45,11 @@ class Subscriber < ActiveRecord::Base
 
   # Get the top ten title score has for past x number of minutes
   def self.title_score_hash_timeframe(x)
-    # Check if the number of minutes is 0 or null and just return the latest from reddit right now
-    if !x.present? or x.to_i == 0
-      return title_score_hash
-    end
+    # Check if the number of minutes is 0 or null and just return the latest from the last 5 minutes
+    if !x.present? or x.to_i < 5 then x = 5 end
     # If the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
     ten_hash = {}
-    topten = self.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc).to_a.uniq{ |item| item.title }[0..9] rescue nil
+    topten = self.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc)[0..9] rescue nil
     if !topten.nil?
       topten.each do |t|
         ten_hash["#{t.title}"] = t.count
@@ -71,8 +75,7 @@ class Subscriber < ActiveRecord::Base
   def self.doughnut_data(title)
     op = self.find_by_title(title).author # Find the author based on the title
     op_posts = self.where("author = ?", op) # Get all op's posts
-    op_posts_unique = op_posts.to_a.uniq{ |item| item.title } # Only get unique posts
-    op_subreddits = op_posts_unique.map(&:subreddit)
+    op_subreddits = op_posts.map(&:subreddit)
     # Count the number of similar subreddits
     countsubreddits = Hash.new 0
     op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
@@ -82,8 +85,7 @@ class Subscriber < ActiveRecord::Base
   # Test me with: Subscriber.user_top_posts(Subscriber.last.author)
   def self.user_top_posts(author)
     op_posts = self.where("author = ?", author) # Get all op's posts
-    op_posts_unique = op_posts.to_a.uniq{ |item| item.title } # Only get unique posts
-    op_subreddits = op_posts_unique.map(&:subreddit)
+    op_subreddits = op_posts.map(&:subreddit)
     # Count the number of similar subreddits
     countsubreddits = Hash.new 0
     op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen

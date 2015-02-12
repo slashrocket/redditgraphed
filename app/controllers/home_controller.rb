@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     # Get the top 10 posts on the front page in the format of {title: upvotes}
     @subscribersorted = Subscriber.hashify(Subscriber.top_ten)
     # Timeframes allowed in current dropdown list
-    @timeframe = {'minute' => 2, '5 minutes' => 5, '30 minutes' => 30, '1 hour' => 60, '6 hours' => 360, '12 hours' => 720, '24 hours' => 1440}
+    @timeframe = {'5 minutes' => 5, '30 minutes' => 30, '1 hour' => 60, '6 hours' => 360, '12 hours' => 720, '24 hours' => 1440}
   end
 
   def timeframe
