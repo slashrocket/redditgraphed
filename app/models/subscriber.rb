@@ -20,8 +20,11 @@ class Subscriber < ActiveRecord::Base
         new_score.save!
         #if the current score is higher than the saved score, save it as highest
         if post.score > foundindatabase.count
-          foundindatabase.count = post.count
+          foundindatabase.count = post.score
           foundindatabase.save!
+        else
+          #update the updated_at timestamp for the subscriber in the db
+          foundindatabase.touch
         end
       #if it isnt found, save it as a new subscriber and then save its score
       else
@@ -49,7 +52,7 @@ class Subscriber < ActiveRecord::Base
     if !x.present? or x.to_i < 5 then x = 5 end
     # If the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
     ten_hash = {}
-    topten = self.where('created_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc)[0..9] rescue nil
+      topten = self.where('updated_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc)[0..9] rescue nil
     if !topten.nil?
       topten.each do |t|
         ten_hash["#{t.title}"] = t.count
@@ -74,8 +77,7 @@ class Subscriber < ActiveRecord::Base
   # Test me with: Subscriber.doughnut_data(Subscriber.last.title)
   def self.doughnut_data(title)
     op = self.find_by_title(title).author # Find the author based on the title
-    op_posts = self.where("author = ?", op) # Get all op's posts
-    op_subreddits = op_posts.map(&:subreddit)
+    op_posts = self.where("author = ?", op).pluck(:subreddit) # Get all op's posts
     # Count the number of similar subreddits
     countsubreddits = Hash.new 0
     op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
@@ -84,8 +86,7 @@ class Subscriber < ActiveRecord::Base
 
   # Test me with: Subscriber.user_top_posts(Subscriber.last.author)
   def self.user_top_posts(author)
-    op_posts = self.where("author = ?", author) # Get all op's posts
-    op_subreddits = op_posts.map(&:subreddit)
+    op_posts = self.where("author = ?", author).pluck(:subreddit) # Get all op's posts
     # Count the number of similar subreddits
     countsubreddits = Hash.new 0
     op_subreddits.each { |word| countsubreddits[word] += 1 } # Iterate through the array, adding +1 each time a same subreddit is seen
