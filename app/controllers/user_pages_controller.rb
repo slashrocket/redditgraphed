@@ -9,6 +9,10 @@ class UserPagesController < ApplicationController
   end
 
   def save
+    if current_user.saved.find_by_subscriber_id(params[:id].to_i)
+      flash[:alert] = "Post has already been saved"
+      return redirect_to dashboard_path
+    end
     saved = Saved.new
     saved.user_id = current_user.id
     saved.subscriber_id = params[:id].to_i
@@ -16,7 +20,7 @@ class UserPagesController < ApplicationController
       flash[:notice] = "Successfully saved to your dashboard"
       return redirect_to root_path
     else
-      flash[:warning] = "Error saving, please try again"
+      flash[:alert] = "Error saving, please try again"
       return redirect_to root_path
     end
   end
