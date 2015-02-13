@@ -6,13 +6,17 @@ class User < ActiveRecord::Base
 
   # Convert username to friendly url format
   def slug
-    name.downcase.gsub(" ", "-").parameterize
+    if name.present?
+      name.downcase.gsub(" ", "-").parameterize
+    end
   end
 
   # Change default param for user from id to id-name for friendly urls.
   # When finding in DB, Rails auto calls .to_i on param, which tosses
   # name and doesn't cause any problems in locating user.
   def to_param
-    "#{id}-#{name}"
+    if name.present?
+      "#{id}-#{name}"
+    end
   end
 end
