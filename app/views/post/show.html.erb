@@ -10,7 +10,7 @@
         <hr/>
         <p>Found <%= @scrapes.count %> database entries for this post</p>
         <p><a href="<%= @post.permalink %>">Reddit link</a></p>
-        <p>Post created: <%= time_ago_in_words(@post.post_created_at)%></p>
+        <p>Post created: <%= time_ago_in_words(@post.post_created_at)%> ago</p>
         <p>Posted by: <%= @post.author %></p>
         <p>Posted to the <%= @post.subreddit %> subreddit</p>
         <p>Highest upvote count: <%= @post.count %></p>
