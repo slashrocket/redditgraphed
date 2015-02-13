@@ -1,6 +1,6 @@
 <div class="row" id="chartdetails">
   <div>
-    <h4 align="center"><%= link_to "Details for this post", post_path(@title) %></h4>
+    <h4 align="center" class="details-links"><%= link_to "Details for this post", post_path(@title) %><%= link_to "Save this post", save_path(@title) %></h4>
   </div>
   <div class="col-sm-4" id="doughnutchartcontainer">
     <h3>Top subreddits for <a href="http://www.reddit.com/u/<%= @op %>" target="_blank"><%= @op %></a></h3>

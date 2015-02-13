@@ -20,4 +20,5 @@ Rails.application.routes.draw do
     match 'users/:id', to: "user_pages#show", via: 'get', as: 'user_page'
   end
   match '/dashboard', to: 'user_pages#index', via: 'get', as: 'dashboard'
+  match '/dashboard/:id/save', to: 'user_pages#save', via: 'get', as: 'save'
 end
