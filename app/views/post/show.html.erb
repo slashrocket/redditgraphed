@@ -1,2 +1,19 @@
-<h1><%= @post.title %></h1>
-<p>Found <%= @scrapes.count %> database entries for this post</p>
+<h2 align="center"><%= @post.title %></h2>
+<div class="row">
+  <div class="col-sm-4">
+    <p>Found <%= @scrapes.count %> database entries for this post</p>
+    <p><a href="<%= @post.permalink %>">Reddit link</a></p>
+    <p>Post created: <%= time_ago_in_words(@post.post_created_at)%></p>
+    <p>Posted by: <%= @post.author %></p>
+    <p>Posted to the <%= @post.subreddit %> subreddit</p>
+    <p>Highest upvote count: <%= @post.count %></p>
+  </div>
+  <div class="col-sm-8">
+    <div>
+      graph one
+    </div>
+    <div>
+      graph two
+    </div>
+  </div>
+</div>
