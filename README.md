@@ -7,6 +7,7 @@ Feel free to contact us on slack at: https://learnrails.slack.com
 
 ### Background processing
 * _Requires [Redis](http://redis.io)_
+* _Requires [Elasticsearch](http://www.elasticsearch.org/overview/elkdownloads/)_
 * Done via sidekiq
 * Start sidekiq via: 'bundle exec sidekiq'
 * Restart sidekiq via: 'kill -kill $(cat tmp/pids/sidekiq.pid) && bundle exec sidekiq'
