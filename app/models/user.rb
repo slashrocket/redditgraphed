@@ -6,9 +6,7 @@ class User < ActiveRecord::Base
 
   # Convert username to friendly url format
   def slug
-    if name.present?
-      name.downcase.gsub(" ", "-").parameterize
-    end
+    name.downcase.gsub(" ", "-").parameterize
   end
 
   # Change default param for user from id to id-name for friendly urls.
