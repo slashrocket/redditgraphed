@@ -6,6 +6,7 @@ class UserPagesController < ApplicationController
 
   def show
     @user = User.find(params[:id])
+    @saved = @user.saved.pluck(:subscriber_id)
   end
 
   def save
