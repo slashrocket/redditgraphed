@@ -1,5 +1,6 @@
 class Subscriber < ActiveRecord::Base
   has_many :scores
+  has_many :saved
 
   # Convert post title to friendly url format
   def slug
