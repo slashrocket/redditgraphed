@@ -1,19 +1,36 @@
 <h2 align="center"><%= @post.title %></h2>
 <div class="row">
   <div class="col-sm-4">
-    <p>Found <%= @scrapes.count %> database entries for this post</p>
-    <p><a href="<%= @post.permalink %>">Reddit link</a></p>
-    <p>Post created: <%= time_ago_in_words(@post.post_created_at)%></p>
-    <p>Posted by: <%= @post.author %></p>
-    <p>Posted to the <%= @post.subreddit %> subreddit</p>
-    <p>Highest upvote count: <%= @post.count %></p>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Post Details</h3>
+      </div>
+      <div class="panel-body">
+        <p>Found <%= @scrapes.count %> database entries for this post</p>
+        <p><a href="<%= @post.permalink %>">Reddit link</a></p>
+        <p>Post created: <%= time_ago_in_words(@post.post_created_at)%></p>
+        <p>Posted by: <%= @post.author %></p>
+        <p>Posted to the <%= @post.subreddit %> subreddit</p>
+        <p>Highest upvote count: <%= @post.count %></p>
+      </div>
+    </div>
   </div>
   <div class="col-sm-8">
-    <div>
-      graph one
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Graph one</h3>
+      </div>
+      <div class="panel-body">
+        graph one
+      </div>
     </div>
-    <div>
-      graph two
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Graph two</h3>
+      </div>
+      <div class="panel-body">
+        graph two
+      </div>
     </div>
   </div>
 </div>
