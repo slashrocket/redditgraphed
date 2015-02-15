@@ -1,6 +1,7 @@
 <h1> Search results for <i><%= @searchedfor %></i></h1>
 <% @resultsfoundunique.each do |x| %>
-<hr/>
-  <%= x.title %>
-<br/>
+  <hr/>
+  <h3><%= x.title %></h3>
+  <%= link_to "Details for this post", post_path(x.title) %>
+  <br/>
 <% end %>

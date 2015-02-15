@@ -9,11 +9,11 @@
         <%= link_to "Save this post", save_path(@post) %>
         <hr/>
         <p>Found <%= @scrapes.count %> database entries for this post</p>
-        <p><a href="<%= @post.permalink %>">Reddit link</a></p>
         <p>Post created: <%= time_ago_in_words(@post.post_created_at)%> ago</p>
-        <p>Posted by: <%= @post.author %></p>
-        <p>Posted to the <%= @post.subreddit %> subreddit</p>
-        <p>Highest upvote count: <%= @post.count %></p>
+        <p><a href="<%= @post.permalink %>">Reddit link</a></p>
+        <p>Posted by: <a href="http://www.reddit.com/u/<%= @post.author %>" target="_blank"><%= @post.author %></a></p>
+        <p>Posted to: <a href="http://www.reddit.com/r/<%= @post.subreddit %>" target="_blank">/r/<%= @post.subreddit %></a></p>
+        <p>Peak upvote count: <%= @post.count %></p>
       </div>
     </div>
   </div>
