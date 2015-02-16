@@ -36,6 +36,8 @@ class HomeController < ApplicationController
     @subreddit_popularity.each do |x|
       @subreddit_popularity_formatted += [x.second]
     end
+    #get the past average of a post for x number of hours, in one hour increments
+    @subreddit_past = Subscriber.pasthours(@title, 12)
 
     # Render the new results on the page
     render partial: 'home/renderchartdetails.js.erb'

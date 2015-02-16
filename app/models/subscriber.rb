@@ -88,6 +88,25 @@ class Subscriber < ActiveRecord::Base
     postsfound = self.where("title LIKE ?", title) rescue nil
   end
 
+  def self.pasthours(sub, hours)
+    #get all scores based on a subscriber entry
+    allscores = sub.scores.select(:score, :created_at)
+    #create a blank result array
+    result = []
+    #iterate through the number of desired hours to check
+    (1..hours).each do |x|
+      #search the scores by the hour and then only return the score as a number in an array
+      thishour = allscores.where("created_at > ? AND created_at < ?", x.hours.ago, (x - 1).hours.ago).pluck(:score) rescue nil
+      if thishour.present?
+      #find out the average of the found scores for that hour
+      thishouraverage = thishour.sum.to_f / thishour.size
+      #make the result a whole number before saving it to the result array
+        result += [thishouraverage.floor]
+      end
+    end
+    return result
+  end
+
   # Test me with: Subscriber.doughnut_data(Subscriber.last.title)
   def self.doughnut_data(title)
     op = self.find_by_title(title).author # Find the author based on the title
