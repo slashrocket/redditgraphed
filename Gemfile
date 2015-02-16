@@ -39,6 +39,8 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 # reddit API for Ruby
 gem 'redditkit'
+#more easily figure out per hour and per day stats
+gem 'groupdate'
 # Use Unicorn as the app server
 # gem 'unicorn'
 

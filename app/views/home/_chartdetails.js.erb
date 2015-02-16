@@ -184,151 +184,102 @@ var polaroptions = {
 
 
 var polardata = [
+    <% if @subreddit_past.present? %>
     {
-        value: 300,
+        value: <%= @subreddit_past.first %>,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
+        label: "Hour one"
     },
+    <% end %>
+    <% if @subreddit_past.count > 1 %>
     {
-        value: 350,
+        value: <%= @subreddit_past.second %>,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "Green"
+        label: "Hour two"
     },
+    <% end %>
+    <% if @subreddit_past.count > 2 %>
     {
-        value: 400,
+        value: <%= @subreddit_past.third %>,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Yellow"
+        label: "Hour three"
     },
+    <% end %>
+    <% if @subreddit_past.count > 3 %>
     {
-        value: 450,
+        value: <%= @subreddit_past.fourth %>,
         color: "#949FB1",
         highlight: "#A8B3C5",
-        label: "Grey"
+        label: "Hour four"
     },
+    <% end %>
+    <% if @subreddit_past.count > 4 %>
     {
-        value: 500,
+        value: <%= @subreddit_past.fifth %>,
         color: "#4D5360",
         highlight: "#616774",
-        label: "Dark Grey"
+        label: "Hour five"
     },
+    <% end %>
+    <% if @subreddit_past.count > 5 %>
     {
-        value: 550,
+        value: <%= @subreddit_past.sixth %>,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
+        label: "Hour six"
     },
+    <% end %>
+    <% if @subreddit_past.count > 6 %>
     {
-        value: 600,
+        value: <%= @subreddit_past.seventh %>,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "Green"
+        label: "Hour seven"
     },
+    <% end %>
+    <% if @subreddit_past.count > 7 %>
     {
-        value: 650,
+        value: <%= @subreddit_past.eighth %>,
         color: "#FDB45C",
         highlight: "#FFC870",
-        label: "Yellow"
+        label: "Hour eight"
     },
+    <% end %>
+    <% if @subreddit_past.count > 8 %>
     {
-        value: 700,
+        value: <%= @subreddit_past.ninth %>,
         color: "#949FB1",
         highlight: "#A8B3C5",
-        label: "Grey"
+        label: "Hour nine"
     },
+    <% end %>
+    <% if @subreddit_past.count > 9 %>
     {
-        value: 750,
+        value: <%= @subreddit_past.tenth %>,
         color: "#4D5360",
         highlight: "#616774",
-        label: "Dark Grey"
+        label: "Hour ten"
     },
+    <% end %>
+    <% if @subreddit_past.count > 10 %>
     {
-        value: 800,
+        value: <%= @subreddit_past.eleventh %>,
         color:"#F7464A",
         highlight: "#FF5A5E",
-        label: "Red"
+        label: "Hour eleven"
     },
+    <% end %>
+    <% if @subreddit_past.count > 11 %>
     {
-        value: 850,
+        value: <%= @subreddit_past.twelfth %>,
         color: "#46BFBD",
         highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 900,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    },
-    {
-        value: 850,
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey"
-    },
-    {
-        value: 800,
-        color: "#4D5360",
-        highlight: "#616774",
-        label: "Dark Grey"
-    },
-    {
-        value: 750,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 700,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 650,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    },
-    {
-        value: 600,
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey"
-    },
-    {
-        value: 550,
-        color: "#4D5360",
-        highlight: "#616774",
-        label: "Dark Grey"
-    },
-    {
-        value: 500,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Red"
-    },
-    {
-        value: 450,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Green"
-    },
-    {
-        value: 400,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Yellow"
-    },
-    {
-        value: 350,
-        color: "#949FB1",
-        highlight: "#A8B3C5",
-        label: "Grey"
+        label: "Hour twelve"
     }
-
+    <% end %>
 ];
 
 //ugly hack to clear old chart on refresh

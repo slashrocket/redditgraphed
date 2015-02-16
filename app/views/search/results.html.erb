@@ -2,6 +2,6 @@
 <% @resultsfoundunique.each do |x| %>
   <hr/>
   <h3><%= x.title %></h3>
-  <%= link_to "Details for this post", post_path(x.title) %>
+  <%= link_to "Details for this post", post_path(x) %>
   <br/>
 <% end %>
