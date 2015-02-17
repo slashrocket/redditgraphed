@@ -1,4 +1,20 @@
 <h1> Search results for <i><%= @searchedfor %></i></h1>
+<% if !@resultsfound.present? %>
+  <hr/>
+  <div align="center">
+  <h3>Sorry, we didn't find anything for <i><%= @searchedfor %></i></h3>
+  <h4>Want to try again?</h4>
+  <hr/>
+  <%= form_for :search, url: searching_path do |f| %>
+    <div class="input-group col-sm-6">
+      <%= f.text_field :text, placeholder: "Search for...", class: 'form-control' %>
+        <span class="input-group-btn">
+          <%= f.submit "Go", class: 'btn btn-default' %>
+        </span>
+      </div>
+    <% end %>
+  </div>
+<% end %>
 <% @resultsfound.each do |x| %>
   <hr/>
   <h3><%= x.title %></h3>
