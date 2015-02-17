@@ -6,9 +6,10 @@
     <% if @saved.count == 0 %>
       <p> You don't have any saved graphs yet, why not <%= link_to "browse the most recent graphs", root_path %>?</p>
     <% else %>
+      <div class="dashboardpanel dashboardbox">
       <% @saved.each do |x| %>
         <% savefound = Subscriber.find(x) %>
-        <div class="panel-group dashboardpanel dashboardbox" id="accordion" role="tablist" aria-multiselectable="true">
+        <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
           <div class="panel panel-default">
             <div class="panel-heading" role="tab" id="headingOne">
               <h4 class="panel-title">
@@ -27,6 +28,7 @@
           </div>
         </div>
       <% end %>
+    </div>
     <% end %>
   </div>
 </div>

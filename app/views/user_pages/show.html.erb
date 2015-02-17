@@ -1,3 +1,4 @@
+<% @body_id = "dashboard" %>
 <h1 align="center"><%= @user.name %>'s page</h1>
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2" align="center">
@@ -5,6 +6,7 @@
     <% if @saved.count == 0 %>
       <p> This user does not have any saved graphs yet.</p>
     <% else %>
+      <div class="dashboardpanel dashboardbox">
       <% @saved.each do |x| %>
         <% savefound = Subscriber.find(x) %>
         <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">
@@ -26,6 +28,7 @@
           </div>
         </div>
       <% end %>
+    </div>
     <% end %>
   </div>
 </div>
