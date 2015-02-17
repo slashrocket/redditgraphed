@@ -1,3 +1,8 @@
+<% @body_id = "search" %>
+<div class="row searchresultsbox">
+  <div class="col-sm-8 col-sm-offset-2">
+<div class="panel panel-default">
+  <div class="panel-body searchresultspanel">
 <h1> Search results for <i><%= @searchedfor %></i></h1>
 <% if !@resultsfound.present? %>
   <hr/>
@@ -21,3 +26,7 @@
   <%= link_to "Details for this post", post_path(x) %>
   <br/>
 <% end %>
+  </div>
+</div>
+  </div>
+</div>

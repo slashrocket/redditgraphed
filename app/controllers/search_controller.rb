@@ -1,9 +1,6 @@
 class SearchController < ApplicationController
   require 'will_paginate/array'
 
-  def index
-  end
-
   def results
     @searchedfor = params[:search][:text].html_safe
     @resultsfound = Subscriber.search(@searchedfor,
