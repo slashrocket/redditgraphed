@@ -14,12 +14,12 @@ var subscribersdata = {
     datasets: [
         {
             label: "Top 10 Posts",
-            fillColor: "rgba(220,220,220,0.2)",
-            strokeColor: "rgba(220,220,220,1)",
-            pointColor: "rgba(220,220,220,1)",
+            fillColor: "rgba(239,247,255,0.2)",
+            strokeColor: "rgba(51,102,153,0.5)",
+            pointColor: "rgba(51,102,153,0.75)",
             pointStrokeColor: "#fff",
-            pointHighlightFill: "#fff",
-            pointHighlightStroke: "rgba(220,220,220,1)",
+            pointHighlightFill: "#336699",
+            pointHighlightStroke: "rgba(198,198,198,1)",
             data: [
               <% @subscribersorted.each_pair do |x, y| %>
                 <%= y.to_i %>,

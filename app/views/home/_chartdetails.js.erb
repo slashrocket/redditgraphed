@@ -78,10 +78,10 @@ var bardata = {
     datasets: [
         {
             label: "My dataset",
-            fillColor: "rgba(151,187,205,0.5)",
-            strokeColor: "rgba(151,187,205,0.8)",
-            highlightFill: "rgba(151,187,205,0.75)",
-            highlightStroke: "rgba(151,187,205,1)",
+            fillColor: "rgba(148,148,255,0.5)",
+            strokeColor: "rgba(255,255,255,0.5)",
+            highlightFill: "rgba(148,148,255,0.75)",
+            highlightStroke: "rgba(255,255,255,0.75)",
             data: <%= @subreddit_popularity_formatted %>
         }
     ]
@@ -144,8 +144,8 @@ var polardata = [
     <% if @subreddit_past.present? %>
     {
         value: <%= @subreddit_past.first %>,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
+        color:"#ff4500",
+        highlight: "#ff5700",
         label: "Hour one"
     },
     <% end %>
