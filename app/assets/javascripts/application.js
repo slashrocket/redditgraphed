@@ -17,3 +17,4 @@
 //= require toastr
 //= require nprogress
 //= require Chart
+//= require home

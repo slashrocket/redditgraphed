@@ -2,9 +2,19 @@
   <div>
     <h4 align="center" class="details-links"><%= link_to "Details for this post", post_path(@title) %><%= link_to "Save this post", save_path(@title) %></h4>
   </div>
-  <div class="col-sm-4" id="doughnutchartcontainer">
-    <h3>Top subreddits for <a href="http://www.reddit.com/u/<%= @op %>" target="_blank"><%= @op %></a></h3>
-    <canvas id="doughnutchart"></canvas>
+  <div class="col-sm-4">
+    <div class="panel panel-default nobgcolor">
+      <div class="panel-body homepanel" id="doughnutchartcontainer">
+        <h5 align="center"><%= @title.title %></h5>
+        <div class="one sliding">Found <%= @title.scores.count %> database entries for this post</div>
+        <div class="two sliding">Post created: <%= time_ago_in_words(@title.post_created_at)%> ago</div>
+        <div class="three sliding"><a href="<%= @title.permalink %>">Reddit link</a></div>
+        <div class="four sliding">Posted by: <a href="http://www.reddit.com/u/<%= @title.author %>" target="_blank"><%= @title.author %></a></div>
+        <div class="five sliding">Posted to: <a href="http://www.reddit.com/r/<%= @title.subreddit %>" target="_blank">/r/<%= @title.subreddit %></a></div>
+        <div class="six sliding">Peak upvote count: <%= @title.count %></div>
+        <div class="seven sliding">OP has been on the front page <%= @opcount %> times</div>
+      </div>
+    </div>
   </div>
   <div class="col-sm-4" id="barchartcontainer">
     <h3>Popularity of <a href="http://www.reddit.com/r/<%= @subreddit_name %>" target="_blank">/r/<%= @subreddit_name %></a> for the past week</h3>

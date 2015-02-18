@@ -28,6 +28,7 @@ class HomeController < ApplicationController
     if !@title.present? then return render partial: 'home/nodata.js.erb' end
     #get data for detailed charts
     @op = @title.author
+    @opcount = Subscriber.where("author = ?", @op).count
     if !@op.present? then return render partial: 'home/nodata.js.erb' end
     @subreddit_name = @title.subreddit
     @op_subreddit_data = Subscriber.user_top_posts(@op)

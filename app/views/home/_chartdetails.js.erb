@@ -1,70 +1,27 @@
 $(document).ready(function() {
 
-var doughnutoptions = {
-    //Boolean - Whether we should show a stroke on each segment
-    segmentShowStroke : true,
-
-    //String - The colour of each segment stroke
-    segmentStrokeColor : "#fff",
-
-    //Number - The width of each segment stroke
-    segmentStrokeWidth : 2,
-
-    //Number - The percentage of the chart that we cut out of the middle
-    percentageInnerCutout : 50, // This is 0 for Pie charts
-
-    //Number - Amount of animation steps
-    animationSteps : 100,
-
-    //String - Animation easing effect
-    animationEasing : "easeOutBounce",
-
-    //Boolean - Whether we animate the rotation of the Doughnut
-    animateRotate : true,
-
-    //Boolean - Whether we animate scaling the Doughnut from the centre
-    animateScale : false
-}
-
-
-var doughnutdata = [
-    {
-value: <%= @op_subreddit_data.first.second %>,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-label: "<%= @op_subreddit_data.first.first %>"
-    }
-    <% if @op_subreddit_data.count > 1 %>
-    ,
-    {
-value: <%= @op_subreddit_data.second.second %>,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-label: "<%= @op_subreddit_data.second.first %>"
-    }
-    <% end %>
-    <% if @op_subreddit_data.count > 2 %>
-    ,
-    {
-value: <%= @op_subreddit_data.third.second %>,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-label: "<%= @op_subreddit_data.third.first %>"
-    }
-    <% end %>
-]
-
-
-//ugly hack to clear old chart on refresh
-$('#doughnutchart').remove();
-$('#doughnutchartcontainer').append('<canvas id="doughnutchart"></canvas>');
-
-//draw the applicant per day line chart
-var ctz = document.getElementById("doughnutchart").getContext("2d");
-ctz.canvas.width  = $('#doughnutchartcontainer').innerWidth() - 50;
-ctz.canvas.height  = "300";
-var myDoughnutChart = new Chart(ctz).Doughnut(doughnutdata,doughnutoptions);
-
+//for pretty slide in text
+$(".one")
+          .css('display', 'block')
+          .animate({opacity: 1.0, left: '120px'}, 600);
+$(".two")
+          .css('display', 'block')
+          .delay(150).animate({opacity: 1.0, left: '120px'}, 600);
+$(".three")
+          .css('display', 'block')
+          .delay(300).animate({opacity: 1.0, left: '120px'}, 600);
+$(".four")
+          .css('display', 'block')
+          .delay(450).animate({opacity: 1.0, left: '120px'}, 600);
+$(".five")
+          .css('display', 'block')
+          .delay(600).animate({opacity: 1.0, left: '120px'}, 600);
+$(".six")
+          .css('display', 'block')
+          .delay(750).animate({opacity: 1.0, left: '120px'}, 600);
+$(".seven")
+          .css('display', 'block')
+          .delay(900).animate({opacity: 1.0, left: '120px'}, 600);
 
 var baroptions = {
     //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
