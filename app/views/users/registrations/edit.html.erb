@@ -1,5 +1,5 @@
 <% @body_id = "login" %>
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: 'form-2'}) do |f| %>
+<%= form_for(resource, as: resource_name, url: registration_path(resource_name), method: :put, html: {class: 'form-2'}) do |f| %>
   <h1><span class="log-in">Edit your account information</span></h1>
   <%= devise_error_messages! %>
 
@@ -8,20 +8,35 @@
     <%= f.text_field :name, autofocus: true, placeholder: 'Username', value: current_user.name %>
   </p>
 
-  <div class="field">
+  <p>
     <%= f.label :email %>
     <%= f.email_field :email, placeholder: 'email@example.com' %>
-  </div>
-
-  <p>
-    <%= f.label :password, "change password" %>
-    <%= f.password_field :password, autocomplete: "off", placeholder: 'New Password' %>
   </p>
 
-  <p>
-    <%= f.submit "Update", id: 'submit' %>
+  <p align="center">
+    <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Change password
+    </button>
+    <div class="collapse" id="collapseExample">
+      <p>
+        <%= f.label :current_password, "Current password" %>
+        <%= f.password_field :current_password, autocomplete: "off", placeholder: 'Current password' %>
+      </p>
+
+      <p>
+        <%= f.label :password, "New password" %>
+        <%= f.password_field :password, autocomplete: "off", placeholder: 'New Password' %>
+      </p>
+    </div>
   </p>
-  <div class="signin" align="center">
+
+  <hr/>
+
+  <p align="center">
+    <%= f.submit "Update", id: 'submit', style: 'float: none; width: 75%;' %>
+  </p>
+<% end %>
+
+  <div class="deleteaccount" align="center">
     <%= button_to "Delete Account", registration_path(resource_name), data: { confirm: "Are you sure?" }, method: :delete %>
   </div>
-<% end %>
