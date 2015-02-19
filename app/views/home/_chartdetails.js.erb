@@ -74,7 +74,7 @@ weekday[6] = "Saturday";
 
 var bardata = {
 //label each day of the week by subtracting a day from today and then matching it to the above array
-    labels: [weekday[d.getDay() - 6], weekday[d.getDay() - 5], weekday[d.getDay() - 4], weekday[d.getDay() - 3], weekday[d.getDay() - 2], weekday[d.getDay() - 1], weekday[d.getDay()]],
+    labels: [weekday[d.getDay() - 6], weekday[d.getDay() - 5], weekday[d.getDay() - 4], weekday[d.getDay() - 3], weekday[d.getDay() - 2], "Yesterday", "Today"],
     datasets: [
         {
             label: "My dataset",
@@ -82,7 +82,7 @@ var bardata = {
             strokeColor: "rgba(255,255,255,0.5)",
             highlightFill: "rgba(148,148,255,0.75)",
             highlightStroke: "rgba(255,255,255,0.75)",
-            data: <%= @subreddit_popularity_formatted %>
+            data: <%= @subreddit_popularity_formatted.reverse %>
         }
     ]
 };
