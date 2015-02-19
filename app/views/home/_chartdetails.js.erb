@@ -57,7 +57,7 @@ var baroptions = {
 
 //figure out the day of the week so we can base our chart labels on today
 var d = new Date();
-var weekday = new Array(7);
+var weekday = new Array(13);
 weekday[-6] = "Monday";
 weekday[-5] = "Tuesday";
 weekday[-4] = "Wednesday";
@@ -74,14 +74,14 @@ weekday[6] = "Saturday";
 
 var bardata = {
 //label each day of the week by subtracting a day from today and then matching it to the above array
-    labels: [weekday[d.getDay() - 7], weekday[d.getDay() - 6], weekday[d.getDay() - 5], weekday[d.getDay() - 4], weekday[d.getDay() - 3], weekday[d.getDay() - 2], weekday[d.getDay() - 1]],
+    labels: [weekday[d.getDay() - 6], weekday[d.getDay() - 5], weekday[d.getDay() - 4], weekday[d.getDay() - 3], weekday[d.getDay() - 2], weekday[d.getDay() - 1], weekday[d.getDay()]],
     datasets: [
         {
             label: "My dataset",
-            fillColor: "rgba(148,148,255,0.5)",
-            strokeColor: "rgba(255,255,255,0.5)",
-            highlightFill: "rgba(148,148,255,0.75)",
-            highlightStroke: "rgba(255,255,255,0.75)",
+            fillColor: "rgba(151,187,205,0.5)",
+            strokeColor: "rgba(151,187,205,0.8)",
+            highlightFill: "rgba(151,187,205,0.75)",
+            highlightStroke: "rgba(151,187,205,1)",
             data: <%= @subreddit_popularity_formatted %>
         }
     ]
@@ -144,8 +144,8 @@ var polardata = [
     <% if @subreddit_past.present? %>
     {
         value: <%= @subreddit_past.first %>,
-        color:"#ff4500",
-        highlight: "#ff5700",
+        color:"#F7464A",
+        highlight: "#FF5A5E",
         label: "Hour one"
     },
     <% end %>
