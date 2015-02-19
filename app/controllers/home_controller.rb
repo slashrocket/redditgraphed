@@ -37,6 +37,9 @@ class HomeController < ApplicationController
     @subreddit_popularity.each do |x|
       @subreddit_popularity_formatted += [x.second]
     end
+    until @subreddit_popularity_formatted.count >= 7
+      @subreddit_popularity_formatted += [0]
+    end
     #get the past average of a post for x number of hours, in one hour increments
     @subreddit_past = Subscriber.pasthours(@title, 12)
 
