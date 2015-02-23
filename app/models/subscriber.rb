@@ -58,16 +58,16 @@ class Subscriber < ActiveRecord::Base
       #reset foundindatabase to nil so it doesnt try to reuse an old variable
       foundindatabase = nil
     end
-    Subscriber.reindex
   end
 
   # Get the top ten title score has for past x number of minutes
   def self.title_score_hash_timeframe(x)
     # Check if the number of minutes is 0 or null and just return the latest from the last 5 minutes
-    if !x.present? or x.to_i < 5 then x = 5 end
+    if x.to_i < 5 then x = 5 end
     # If the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
-    topten = Subscriber.where(updated_at: x.minutes.ago..Time.now).order(count: :desc).pluck(:title, :count)[0..9] rescue nil
-    return topten
+    topten = Subscriber.where(updated_at: x.to_i.minutes.ago..Time.now).order(count: :desc).limit(10).pluck(:title, :count) rescue nil
+    unless topten.present? then return nil end
+    return Hash[topten]
   end
 
   def self.hashify(x)
@@ -116,11 +116,11 @@ class Subscriber < ActiveRecord::Base
     #keep track of the previously used datetime in the loop
     timelast = firstscoretime
     #iterate through the number of desired minutes to check based on the start/end time
-    (1..loopcount).each do |x|
+    (0..loopcount).each do |x|
       #get the current time we want to check 'up to' in the sql where statement
       currenttime = timelast + minute.minutes
       #search the scores by the time block and then only return the score as a number in an array
-      thisminute = allscores.where("created_at > ? AND created_at < ?", timelast, currenttime).pluck(:score) rescue nil
+      thisminute = allscores.where(created_at: timelast..currenttime).pluck(:score) rescue nil
       #if we find something from the sql request
       if thisminute.present?
         #find out the average of the found scores for that time block

@@ -11,8 +11,7 @@ class HomeController < ApplicationController
     @subscriber = Subscriber.title_score_hash_timeframe(params[:time]) rescue nil
     #if we dont get at least 10 results back, we dont have proper DB data, kick back an alert message and redirect
     unless @subscriber.present? then return render partial: 'home/nodata.js.erb' end
-    # Sort by upvote count (the value of hash)
-    @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
+    @subscribersorted = @subscriber
     # Render the new results on the page
     render partial: 'home/chartdata.js.erb'
   end
