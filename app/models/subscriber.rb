@@ -113,8 +113,8 @@ class Subscriber < ActiveRecord::Base
     allscores.order! 'created_at DESC'
     firstscoretime = allscores.first.created_at
     lastscoretime = allscores.last.created_at
-    minutesapart = ((lastscoretime.minus_with_coercion(firstscoretime)).round / 60)
-    loopcount = (minutesapart / minutes).round
+    minutesapart = ((lastscoretime.minus_with_coercion(firstscoretime)).floor / 60)
+    loopcount = (minutesapart / minutes).floor
     #create a blank result array
     result = []
     #iterate through the number of desired minutes to check
