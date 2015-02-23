@@ -82,12 +82,4 @@ var cty = document.getElementById("detailschartone").getContext("2d");
 cty.canvas.width  = $('#detailschartonecontainer').innerWidth() - 70;
 cty.canvas.height  = "300";
 var DetailsChartOneChart = new Chart(cty).Line(detailschartonedata, detailschartoneoptions);
-
-//on click of a point on the chart, do something
-cty.canvas.onclick = function(evt){
-    var activePoints = DetailsChartOneChart.getPointsAtEvent(evt);
-    // => activePoints is an array of points on the canvas that are at the same position as the click event.
-    // Ex. activePoints[0].label will give you the label of the currently clicked on point
-    $.post( "title", {title: activePoints[0].label});
-};
 });
