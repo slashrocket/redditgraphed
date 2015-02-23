@@ -1,0 +1,31 @@
+<div class="row">
+<div class="col-sm-10 col-sm-offset-1" id="subscriberschartcontainer">
+  <h3>Break this up by... <%= select 'post', 'timeframe',  @timeframe, {:class => "form-control", :remote => true}  %></h3>
+  <div id="detailschartonespinner" class="spinner spinneroff">
+    <div class="rect1"></div>
+    <div class="rect2"></div>
+    <div class="rect3"></div>
+    <div class="rect4"></div>
+    <div class="rect5"></div>
+  </div>
+    <div class="panel panel-default">
+      <div class="panel-body detailspanel" id="detailschartonecontainer">
+        <canvas id="detailschartone"></canvas>
+      </div>
+  </div>
+</div>
+
+<!-- on timeframe dropdown change, update things -->
+<script>
+  $("#post_timeframe").change(function(){
+  $("#detailschartone").addClass('transparent')
+  $("#detailschartonespinner").removeClass('spinneroff')
+  $("#detailschartonespinner").addClass('spinneron')
+  $.post( "post_timeframe", {time: $("#post_timeframe").val()});
+});
+</script>
+
+<script>
+  //render the big line chart listing the top ten subreddits via chart.js
+  <%= render 'chartdata.js.erb' %>
+</script>
