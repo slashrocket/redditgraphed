@@ -107,6 +107,8 @@ class Subscriber < ActiveRecord::Base
     return result
   end
 
+  #input the subscriber model object and the number of minutes between data points
+  #output a hash of the minutes and the average score for those minutes per data point
   def self.pastminutes(sub, minute)
     #get all scores based on a subscriber entry and order them decending
     allscores = sub.scores.select(:score, :created_at).order(created_at: :DESC)
@@ -119,7 +121,7 @@ class Subscriber < ActiveRecord::Base
     #find out how many times we will have to loop
     loopcount = (minutesapart / minute).floor
     #create a blank result array
-    result = []
+    result = {}
     #keep track of the previously used datetime in the loop
     timelast = firstscoretime
     #iterate through the number of desired minutes to check based on the start/end time
@@ -133,7 +135,7 @@ class Subscriber < ActiveRecord::Base
         #find out the average of the found scores for that time block
         thisminuteaverage = thisminute.sum.to_f / thisminute.size
         #make the result a whole number before saving it to the result array
-        result += [thisminuteaverage.floor]
+        result.merge!(timelast.strftime("%I:%M%p") => thisminuteaverage.floor)
       end
       #update the previously used datetime in the loop before iterating again
       timelast = currenttime
