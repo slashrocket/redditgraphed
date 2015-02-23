@@ -83,7 +83,5 @@ var detailschartoneoptions = {
 
 //draw the applicant per day line chart
 var cty = document.getElementById("detailschartone").getContext("2d");
-cty.canvas.width  = $('#detailschartonecontainer').innerWidth() - 70;
-cty.canvas.height  = "300";
 var DetailsChartOneChart = new Chart(cty).Line(detailschartonedata, detailschartoneoptions);
 });
