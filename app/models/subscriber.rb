@@ -107,6 +107,29 @@ class Subscriber < ActiveRecord::Base
     return result
   end
 
+  def self.pastminutes(sub, minutes)
+    #get all scores based on a subscriber entry
+    allscores = sub.scores.select(:score, :created_at)
+    allscores.order! 'created_at DESC'
+    firstscoretime = allscores.first.created_at
+    lastscoretime = allscores.last.created_at
+    minutesapart = ((lastscoretime.minus_with_coercion(firstscoretime)).round / 60)
+    #create a blank result array
+    result = []
+      #iterate through the number of desired minutes to check
+      (1..minutes).each do |x|
+      #search the scores by the hour and then only return the score as a number in an array
+        thisminute = allscores.where("created_at > ? AND created_at < ?", x.minutes.ago, (x - 1).minutes.ago).pluck(:score) rescue nil
+      if thisminute.present?
+      #find out the average of the found scores for that hour
+        thisminuteaverage = thisminute.sum.to_f / thisminute.size
+      #make the result a whole number before saving it to the result array
+        result += [thisminuteaverage.floor]
+      end
+    end
+    return result
+  end
+
   # Test me with: Subscriber.doughnut_data(Subscriber.last.title)
   def self.doughnut_data(title)
     op = self.find_by_title(title).author # Find the author based on the title
