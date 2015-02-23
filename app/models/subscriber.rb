@@ -43,7 +43,7 @@ class Subscriber < ActiveRecord::Base
       #if it isnt found, save it as a new subscriber and then save its score
       else
         new_sub = Subscriber.new
-        new_sub.title = CGI::escapeHTML(post.title.html_safe)
+        new_sub.title = CGI::escapeHTML(post.title)
         new_sub.subreddit = post.subreddit
         new_sub.author = post.author
         new_sub.permalink = post.permalink
@@ -66,14 +66,8 @@ class Subscriber < ActiveRecord::Base
     # Check if the number of minutes is 0 or null and just return the latest from the last 5 minutes
     if !x.present? or x.to_i < 5 then x = 5 end
     # If the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
-    ten_hash = {}
-      topten = self.where('updated_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc)[0..9] rescue nil
-    if !topten.nil?
-      topten.each do |t|
-        ten_hash["#{t.title}"] = t.count
-      end
-    end
-    return ten_hash
+    topten = Subscriber.where(updated_at: x.minutes.ago..Time.now).order(count: :desc).pluck(:title, :count)[0..9] rescue nil
+    return topten
   end
 
   def self.hashify(x)
@@ -83,10 +77,6 @@ class Subscriber < ActiveRecord::Base
     end
     hash = Hash[hash.sort_by{|k, v| v}.reverse]
     return hash
-  end
-
-  def self.clicked_post(title)
-    postsfound = self.where("title LIKE ?", title) rescue nil
   end
 
   def self.pasthours(sub, hours)
