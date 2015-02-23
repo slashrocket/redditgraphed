@@ -1,6 +1,7 @@
 class PostController < ApplicationController
   def show
     @post = Subscriber.find(params[:title])
+    @opcount = Subscriber.where("author = ?", @post.author).count
     @scrapes = @post.scores
     @timeframe = {'5 minutes' => 5, '10 minutes' => 10, '15 minutes' => 15, '30 minutes' => 30, '45 minutes' => 45, 'hour' => 60}
     @chartone = Subscriber.pastminutes(@post, 10)
