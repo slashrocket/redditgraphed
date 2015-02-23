@@ -12,7 +12,7 @@ class HomeController < ApplicationController
     # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
     @subscriber = Subscriber.title_score_hash_timeframe(@time_in_minutes) rescue nil
     #if we dont get at least 10 results back, we dont have proper DB data, kick back an alert message and redirect
-    if !@subscriber.present? or @subscriber.count != 10
+    if !@subscriber.present?
       return render partial: 'home/nodata.js.erb'
     end
     # Sort by upvote count (the value of hash)
@@ -29,7 +29,6 @@ class HomeController < ApplicationController
     #get data for detailed charts
     @op = @title.author
     @opcount = Subscriber.where("author = ?", @op).count
-    if !@op.present? then return render partial: 'home/nodata.js.erb' end
     @subreddit_name = @title.subreddit
     @op_subreddit_data = Subscriber.user_top_posts(@op)
     @subreddit_popularity = Subscriber.subreddit_popularity(@subreddit_name, 7)
