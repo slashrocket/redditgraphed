@@ -107,12 +107,12 @@ class Subscriber < ActiveRecord::Base
     return result
   end
 
-    def self.pastminutes(sub, minute)
+  def self.pastminutes(sub, minute)
     #get all scores based on a subscriber entry
     allscores = sub.scores.select(:score, :created_at)
     allscores.order! 'created_at DESC'
-    firstscoretime = allscores.first.created_at
-    lastscoretime = allscores.last.created_at
+    firstscoretime = allscores.last.created_at
+    lastscoretime = allscores.first.created_at
     minutesapart = ((lastscoretime.minus_with_coercion(firstscoretime)).floor / 60)
     loopcount = (minutesapart / minute).floor
     #create a blank result array
@@ -123,11 +123,11 @@ class Subscriber < ActiveRecord::Base
     (1..loopcount).each do |x|
       currenttime = timelast + minute.minutes
       #search the scores by the time block and then only return the score as a number in an array
-      thisminute = allscores.where("created_at > ? AND created_at < ?", currenttime, timelast.pluck(:score) rescue nil
+      thisminute = allscores.where("created_at > ? AND created_at < ?", currenttime, timelast).pluck(:score) rescue nil
       if thisminute.present?
         #find out the average of the found scores for that time block
         thisminuteaverage = thisminute.sum.to_f / thisminute.size
-      #make the result a whole number before saving it to the result array
+        #make the result a whole number before saving it to the result array
         result += [thisminuteaverage.floor]
       end
       timelast = currenttime
