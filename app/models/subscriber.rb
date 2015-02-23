@@ -164,13 +164,10 @@ class Subscriber < ActiveRecord::Base
   end
 
   # Return array containing days of the week(as a number) and the number of times that subreddit appeared that day.
-  def self.subreddit_popularity(subreddit, days = 7)
-    # Begining of the past week.
-    start_date = days.days.ago.midnight
-    sql_query = "subreddit = '#{subreddit}' AND created_at > '#{days.days.ago.midnight}'"
+  def self.subreddit_popularity(sub, daycount)
+    sql_query = self.where(subreddit: sub, created_at: daycount.days.ago..Time.now)
     # Return unsorted hash: date => number of appearance
-    hash_result = self.where(sql_query).select(:title).group("DATE(created_at)").count
-    # Sort by date, replace date with number (7 is the oldest day, 1 is today) and return array with results
-    array_result = hash_result.sort.each {|item| item[0] = days; days -= 1}
+    hash_result = sql_query.group_by_day(:created_at, range: (daycount.days.ago + 1.day)..Time.now).count.values
+    return hash_result
   end
 end
