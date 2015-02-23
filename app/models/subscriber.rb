@@ -116,11 +116,11 @@ class Subscriber < ActiveRecord::Base
     #keep track of the previously used datetime in the loop
     timelast = firstscoretime
     #iterate through the number of desired minutes to check based on the start/end time
-    (1..loopcount).each do |x|
+    (0..loopcount).each do |x|
       #get the current time we want to check 'up to' in the sql where statement
       currenttime = timelast + minute.minutes
       #search the scores by the time block and then only return the score as a number in an array
-      thisminute = allscores.where("created_at > ? AND created_at < ?", timelast, currenttime).pluck(:score) rescue nil
+      thisminute = allscores.where(created_at: timelast..currenttime).pluck(:score) rescue nil
       #if we find something from the sql request
       if thisminute.present?
         #find out the average of the found scores for that time block
