@@ -108,28 +108,34 @@ class Subscriber < ActiveRecord::Base
   end
 
   def self.pastminutes(sub, minute)
-    #get all scores based on a subscriber entry
-    allscores = sub.scores.select(:score, :created_at)
-    allscores.order! 'created_at DESC'
+    #get all scores based on a subscriber entry and order them decending
+    allscores = sub.scores.select(:score, :created_at).order(created_at: :DESC)
+    #get the first scores created_at time
     firstscoretime = allscores.last.created_at
+    #get the last scores created_at time
     lastscoretime = allscores.first.created_at
+    #find out how far apart they are in minutes
     minutesapart = ((lastscoretime.minus_with_coercion(firstscoretime)).floor / 60)
+    #find out how many times we will have to loop
     loopcount = (minutesapart / minute).floor
     #create a blank result array
     result = []
-    #keep track of the previously used datetime we used in the loop
+    #keep track of the previously used datetime in the loop
     timelast = firstscoretime
-    #iterate through the number of desired minutes to check
+    #iterate through the number of desired minutes to check based on the start/end time
     (1..loopcount).each do |x|
+      #get the current time we want to check 'up to' in the sql where statement
       currenttime = timelast + minute.minutes
       #search the scores by the time block and then only return the score as a number in an array
       thisminute = allscores.where("created_at > ? AND created_at < ?", timelast, currenttime).pluck(:score) rescue nil
+      #if we find something from the sql request
       if thisminute.present?
         #find out the average of the found scores for that time block
         thisminuteaverage = thisminute.sum.to_f / thisminute.size
         #make the result a whole number before saving it to the result array
         result += [thisminuteaverage.floor]
       end
+      #update the previously used datetime in the loop before iterating again
       timelast = currenttime
     end
     return result
