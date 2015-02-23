@@ -72,18 +72,6 @@ var detailschartoneoptions = {
     scaleBeginAtZero: true
 };
 
-//remake the line chart to fix the label issue, this shouldn't be required but chart.js sux
-  Chart.types.Line.extend({
-     name : "AltLine",
-
-     initialize : function(data) {
-        Chart.types.Line.prototype.initialize.apply(this, arguments);
-        this.scale.draw = function() {
-           this.endPoint = this.height - 10;
-           Chart.Scale.prototype.draw.apply(this, arguments);
-        };
-     }
-  });
 
 //ugly hack to clear old chart on refresh
   $('#detailschartone').remove();
@@ -91,9 +79,9 @@ var detailschartoneoptions = {
 
 //draw the applicant per day line chart
 var cty = document.getElementById("detailschartone").getContext("2d");
-cty.canvas.width  = $('#detailschartonecontainer').innerWidth() - 50;
+cty.canvas.width  = $('#detailschartonecontainer').innerWidth() - 70;
 cty.canvas.height  = "300";
-var DetailsChartOneChart = new Chart(cty).AltLine(detailschartonedata, detailschartoneoptions);
+var DetailsChartOneChart = new Chart(cty).Line(detailschartonedata, detailschartoneoptions);
 
 //on click of a point on the chart, do something
 cty.canvas.onclick = function(evt){
