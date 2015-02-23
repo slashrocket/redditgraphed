@@ -6,7 +6,7 @@
   <h3>Post Details</h3>
     <div class="panel panel-default nobgcolor">
       <div class="panel-body homepanel" id="doughnutchartcontainer">
-        <h5 align="center"><%= @title.title %></h5>
+        <h5 align="center"><%= CGI.unescapeHTML(@title.title) %></h5>
         <div class="one sliding">Found <%= @title.scores.count %> database entries for this post</div>
         <div class="two sliding">Post created: <%= time_ago_in_words(@title.post_created_at)%> ago</div>
         <div class="three sliding"><a href="<%= @title.permalink %>">Reddit link</a></div>

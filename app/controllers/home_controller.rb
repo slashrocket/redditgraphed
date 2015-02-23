@@ -19,7 +19,7 @@ class HomeController < ApplicationController
 
   def title
     # Get the title we'll be using from the url
-    @title = Subscriber.find_by_title(params[:title].html_safe)
+    @title = Subscriber.find_by_title(CGI::escapeHTML(params[:title]))
     #if an error occured or we couldnt find anything, alert the user
     unless @title.present? then return render partial: 'home/nodata.js.erb' end
     #get number of times op has been top 10

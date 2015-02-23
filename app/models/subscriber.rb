@@ -25,7 +25,7 @@ class Subscriber < ActiveRecord::Base
     #get the top ten reddit posts and iterate through them as objects
     self.top_ten.each do |post|
       #check if this post already exists in the database
-      foundindatabase = self.find_by_title(post.title.html_safe) rescue nil
+      foundindatabase = self.find_by_title(CGI::escapeHTML(post.title)) rescue nil
       #if its found, only save its current score
       if foundindatabase.present?
         new_score = Score.new
@@ -43,7 +43,7 @@ class Subscriber < ActiveRecord::Base
       #if it isnt found, save it as a new subscriber and then save its score
       else
         new_sub = Subscriber.new
-        new_sub.title = post.title.html_safe
+        new_sub.title = CGI::escapeHTML(post.title.html_safe)
         new_sub.subreddit = post.subreddit
         new_sub.author = post.author
         new_sub.permalink = post.permalink
