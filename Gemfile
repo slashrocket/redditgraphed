@@ -37,8 +37,9 @@ gem 'jbuilder', '~> 2.0'
 gem 'sdoc', '~> 0.4.0', group: :doc
 # Devise for user authentication
 gem 'devise'
-# reddit API for Ruby
+# for reddit
 gem 'redditkit'
+gem 'omniauth-reddit', :git => 'git://github.com/jackdempsey/omniauth-reddit.git'
 #more easily figure out per hour and per day stats
 gem 'groupdate'
 # Use Unicorn as the app server
