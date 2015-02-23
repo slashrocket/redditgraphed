@@ -123,7 +123,7 @@ class Subscriber < ActiveRecord::Base
     (1..loopcount).each do |x|
       currenttime = timelast + minute.minutes
       #search the scores by the time block and then only return the score as a number in an array
-      thisminute = allscores.where("created_at > ? AND created_at < ?", currenttime, timelast).pluck(:score) rescue nil
+      thisminute = allscores.where("created_at > ? AND created_at < ?", timelast, currenttime).pluck(:score) rescue nil
       if thisminute.present?
         #find out the average of the found scores for that time block
         thisminuteaverage = thisminute.sum.to_f / thisminute.size
