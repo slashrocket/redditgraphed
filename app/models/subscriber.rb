@@ -114,10 +114,11 @@ class Subscriber < ActiveRecord::Base
     firstscoretime = allscores.first.created_at
     lastscoretime = allscores.last.created_at
     minutesapart = ((lastscoretime.minus_with_coercion(firstscoretime)).round / 60)
+    loopcount = (minutesapart / minutes).round
     #create a blank result array
     result = []
-      #iterate through the number of desired minutes to check
-      (1..minutes).each do |x|
+    #iterate through the number of desired minutes to check
+    (1..loopcount).each do |x|
       #search the scores by the hour and then only return the score as a number in an array
         thisminute = allscores.where("created_at > ? AND created_at < ?", x.minutes.ago, (x - 1).minutes.ago).pluck(:score) rescue nil
       if thisminute.present?
