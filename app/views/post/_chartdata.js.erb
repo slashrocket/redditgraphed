@@ -1,5 +1,9 @@
 $(document).ready(function() {
 
+//make sure the spinner stays off if the page loaded correctly
+$("#detailschartonespinner").removeClass('spinneron')
+$("#detailschartonespinner").addClass('spinneroff')
+
 var detailschartonedata = {
     labels: [
     <% @chartone.each_pair do |x, y| %>

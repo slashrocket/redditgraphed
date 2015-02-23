@@ -8,5 +8,8 @@ class PostController < ApplicationController
 
   def timeframe
     @post = Subscriber.find(params[:title])
+    @time = params[:time].to_i
+    @chartone = Subscriber.pastminutes(@post, @time)
+    render partial: 'post/chartdata.js.erb'
   end
 end
