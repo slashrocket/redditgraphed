@@ -58,6 +58,7 @@ class Subscriber < ActiveRecord::Base
       #reset foundindatabase to nil so it doesnt try to reuse an old variable
       foundindatabase = nil
     end
+    Subscriber.reindex
   end
 
   # Get the top ten title score has for past x number of minutes
