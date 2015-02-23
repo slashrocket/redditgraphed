@@ -2,7 +2,7 @@ $(document).ready(function() {
 
 var detailschartonedata = {
     labels: [
-      <% @subscribersorted.each_pair do |x, y| %>
+    <% @chartone.each_pair do |x, y| %>
         "<%= x.gsub('"', '').html_safe %>",
       <% end %>
     ],
@@ -16,8 +16,8 @@ var detailschartonedata = {
             pointHighlightFill: "#336699",
             pointHighlightStroke: "rgba(198,198,198,1)",
             data: [
-              <% @subscribersorted.each_pair do |x, y| %>
-                <%= y.to_i %>,
+              <% @chartone.each_pair do |x, y| %>
+                <%= y %>,
               <% end %>
             ]
         }
