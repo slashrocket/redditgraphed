@@ -21,7 +21,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       end
     else
       clean_up_passwords resource
-      set_minimum_password_length
+      # set_minimum_password_length
       respond_with resource
     end
   end
