@@ -50,7 +50,6 @@ gem 'elasticsearch-model'
 gem 'elasticsearch-rails'
 gem 'rails_12factor', group: :production
 
-
 group :development, :test do
   gem 'quiet_assets' # Turns off the Rails asset pipeline log
   gem 'bullet' #help reduce sql query speeds
@@ -58,4 +57,13 @@ group :development, :test do
   gem 'rails_best_practices' #helps scan for rails best practices in code
   gem 'hirb' # Formats 'rails console' with tables. Activate with `require 'hirb'` then `Hirb.enable`
   gem 'puma'
+  gem 'rspec-rails', '~> 3.0'
+  gem 'factory_girl_rails', '~> 4.5.0'
+end
+
+group :test do
+  gem 'faker', '~> 1.4.3'
+  gem 'capybara', '~> 2.4.4'
+  gem 'database_cleaner', '~> 1.4.0'
+  gem 'shoulda-matchers', require: false
 end
