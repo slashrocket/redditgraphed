@@ -1,5 +1,6 @@
 require 'rails_helper'
 
+# dummy spec to have some skeleton, not real tests
 describe HomeController do
   let(:home_controller) do
     HomeController.new
