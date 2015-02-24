@@ -51,6 +51,8 @@ var chartoptions = {
 <% @saved.each do |x| %>
 <% savefound = Subscriber.find(x) %>
 <% chartdata = Subscriber.pastminutes(savefound, 60) %>
+<% if !chartdata.present? then chartdata = {"none" => 0, "none" => 0} end %>
+<% if chartdata.count == 1 then chartdata.merge!("n/a" => 0) end %>
 var data<%=x%> = {
     labels: [
     <% chartdata.each_pair do |x, y| %>
@@ -59,7 +61,7 @@ var data<%=x%> = {
     ],
     datasets: [
         {
-            label: "Top 10 Posts",
+            label: "Current upvotes per hour",
             fillColor: "rgba(239,247,255,0.2)",
             strokeColor: "rgba(51,102,153,0.5)",
             pointColor: "rgba(51,102,153,0.75)",
