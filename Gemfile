@@ -8,13 +8,13 @@ gem 'pg'
 gem 'sass-rails', '~> 5.0'
 # Use Bootstrap for templating
 gem 'bootstrap-sass'
-#for nice icons
+# for nice icons
 gem 'font-awesome-rails'
-#for mikes shitty dev box fix
-#gem "puma"
-#for background jobs
+# for mikes shitty dev box fix
+# gem 'puma'
+# for background jobs
 gem 'sidekiq'
-#for sidekiq db support stuff
+# for sidekiq db support stuff
 gem 'redis'
 gem 'autoprefixer-rails'
 # Use Uglifier as compressor for JavaScript assets
@@ -23,9 +23,9 @@ gem 'uglifier', '>= 1.3.0'
 gem 'coffee-rails', '~> 4.1.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 gem 'therubyracer', platforms: :ruby
-#for search using elasticsearch backend
+# for search using elasticsearch backend
 gem 'searchkick'
-#add easy to control pagination for search results
+# add easy to control pagination for search results
 gem 'will_paginate'
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
@@ -39,8 +39,7 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 gem 'devise'
 # for reddit
 gem 'redditkit'
-gem 'omniauth-reddit', :git => 'git://github.com/jackdempsey/omniauth-reddit.git'
-#more easily figure out per hour and per day stats
+# more easily figure out per hour and per day stats
 gem 'groupdate'
 # Use Unicorn as the app server
 # gem 'unicorn'
@@ -53,9 +52,9 @@ gem 'rails_12factor', group: :production
 
 group :development, :test do
   gem 'quiet_assets' # Turns off the Rails asset pipeline log
-  gem 'bullet' #help reduce sql query speeds
-  gem 'lol_dba' #helps scan for better indexing
-  gem 'rails_best_practices' #helps scan for rails best practices in code
+  gem 'bullet' # help reduce sql query speeds
+  gem 'lol_dba' # helps scan for better indexing
+  gem 'rails_best_practices' # helps scan for rails best practices in code
   gem 'hirb' # Formats 'rails console' with tables. Activate with `require 'hirb'` then `Hirb.enable`
   gem 'puma'
 end
