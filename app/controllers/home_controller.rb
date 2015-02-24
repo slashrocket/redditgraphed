@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     # Get the top 10 posts on the front page in the format of {title: upvotes}
-    @subscribersorted = Subscriber.hashify(Subscriber.top_ten)
+    @subscriber = Subscriber.hashify(Subscriber.top_ten)
     # Timeframes allowed in current dropdown list
     @timeframe = {'5 minutes' => 5, '30 minutes' => 30, '1 hour' => 60, '6 hours' => 360, '12 hours' => 720, '24 hours' => 1440}
   end
@@ -11,7 +11,6 @@ class HomeController < ApplicationController
     @subscriber = Subscriber.title_score_hash_timeframe(time_params) rescue nil
     #if we dont get at least 10 results back, we dont have proper DB data, kick back an alert message and redirect
     return render partial: 'home/nodata.js.erb' unless @subscriber.present?
-    @subscribersorted = @subscriber
     # Render the new results on the page
     render partial: 'home/chartdata.js.erb'
   end
