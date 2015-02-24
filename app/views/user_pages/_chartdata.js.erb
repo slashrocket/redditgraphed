@@ -51,7 +51,7 @@ var chartoptions = {
 <% @saved.each do |x| %>
 <% savefound = Subscriber.find(x) %>
 <% chartdata = Subscriber.pastminutes(savefound, 60) %>
-<% if !chartdata.present? then chartdata = {"none" => 0, "none" => 0} end %>
+<% if !chartdata.present? then chartdata = {"n/a" => 0, "n/a" => 0} end %>
 <% if chartdata.count == 1 then chartdata.merge!("n/a" => 0) end %>
 var data<%=x%> = {
     labels: [

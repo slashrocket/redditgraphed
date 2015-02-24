@@ -4,6 +4,10 @@ $(document).ready(function() {
 $("#detailschartonespinner").removeClass('spinneron')
 $("#detailschartonespinner").addClass('spinneroff')
 
+
+<% if !@chartone.present? then @chartone = {"n/a" => 0, "n/a" => 0} end %>
+<% if @chartone.count == 1 then @chartone.merge!("n/a" => 0) end %>
+
 var detailschartonedata = {
     labels: [
     <% @chartone.each_pair do |x, y| %>
