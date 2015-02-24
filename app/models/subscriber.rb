@@ -25,7 +25,7 @@ class Subscriber < ActiveRecord::Base
     #get the top ten reddit posts and iterate through them as objects
     self.top_ten.each do |post|
       #check if this post already exists in the database
-      foundindatabase = self.find_by_title(post.title.html_safe) rescue nil
+      foundindatabase = self.find_by_title(CGI::escapeHTML(post.title)) rescue nil
       #if its found, only save its current score
       if foundindatabase.present?
         new_score = Score.new
@@ -43,7 +43,7 @@ class Subscriber < ActiveRecord::Base
       #if it isnt found, save it as a new subscriber and then save its score
       else
         new_sub = Subscriber.new
-        new_sub.title = post.title.html_safe
+        new_sub.title = CGI::escapeHTML(post.title)
         new_sub.subreddit = post.subreddit
         new_sub.author = post.author
         new_sub.permalink = post.permalink
@@ -63,16 +63,11 @@ class Subscriber < ActiveRecord::Base
   # Get the top ten title score has for past x number of minutes
   def self.title_score_hash_timeframe(x)
     # Check if the number of minutes is 0 or null and just return the latest from the last 5 minutes
-    if !x.present? or x.to_i < 5 then x = 5 end
+    if x.to_i < 5 then x = 5 end
     # If the number of minutes is greater than 0 and a valid integer search the database for x number of minutes
-    ten_hash = {}
-      topten = self.where('updated_at > ?', Time.now.utc - x.to_i.minutes).order(count: :desc)[0..9] rescue nil
-    if !topten.nil?
-      topten.each do |t|
-        ten_hash["#{t.title}"] = t.count
-      end
-    end
-    return ten_hash
+    topten = Subscriber.where(updated_at: x.to_i.minutes.ago..Time.now).order(count: :desc).limit(10).pluck(:title, :count) rescue nil
+    unless topten.present? then return nil end
+    return Hash[topten]
   end
 
   def self.hashify(x)
@@ -82,10 +77,6 @@ class Subscriber < ActiveRecord::Base
     end
     hash = Hash[hash.sort_by{|k, v| v}.reverse]
     return hash
-  end
-
-  def self.clicked_post(title)
-    postsfound = self.where("title LIKE ?", title) rescue nil
   end
 
   def self.pasthours(sub, hours)
@@ -103,6 +94,42 @@ class Subscriber < ActiveRecord::Base
       #make the result a whole number before saving it to the result array
         result += [thishouraverage.floor]
       end
+    end
+    return result
+  end
+
+  #input the subscriber model object and the number of minutes between data points
+  #output a hash of the minutes and the average score for those minutes per data point
+  def self.pastminutes(sub, minute)
+    #get all scores based on a subscriber entry and order them decending
+    allscores = sub.scores.select(:score, :created_at).order(created_at: :DESC)
+    #get the first scores created_at time
+    firstscoretime = allscores.last.created_at
+    #get the last scores created_at time
+    lastscoretime = allscores.first.created_at
+    #find out how far apart they are in minutes
+    minutesapart = ((lastscoretime.minus_with_coercion(firstscoretime)).floor / 60)
+    #find out how many times we will have to loop
+    loopcount = (minutesapart / minute).floor
+    #create a blank result array
+    result = {}
+    #keep track of the previously used datetime in the loop
+    timelast = firstscoretime
+    #iterate through the number of desired minutes to check based on the start/end time
+    (0..loopcount).each do |x|
+      #get the current time we want to check 'up to' in the sql where statement
+      currenttime = timelast + minute.minutes
+      #search the scores by the time block and then only return the score as a number in an array
+      thisminute = allscores.where(created_at: timelast..currenttime).pluck(:score) rescue nil
+      #if we find something from the sql request
+      if thisminute.present?
+        #find out the average of the found scores for that time block
+        thisminuteaverage = thisminute.sum.to_f / thisminute.size
+        #make the result a whole number before saving it to the result array
+        result.merge!(timelast.strftime("%I:%M%p") => thisminuteaverage.floor)
+      end
+      #update the previously used datetime in the loop before iterating again
+      timelast = currenttime
     end
     return result
   end
@@ -127,13 +154,10 @@ class Subscriber < ActiveRecord::Base
   end
 
   # Return array containing days of the week(as a number) and the number of times that subreddit appeared that day.
-  def self.subreddit_popularity(subreddit, days = 7)
-    # Begining of the past week.
-    start_date = days.days.ago.midnight
-    sql_query = "subreddit = '#{subreddit}' AND created_at > '#{days.days.ago.midnight}'"
+  def self.subreddit_popularity(sub, daycount)
+    sql_query = self.where(subreddit: sub, created_at: daycount.days.ago..Time.now)
     # Return unsorted hash: date => number of appearance
-    hash_result = self.where(sql_query).select(:title).group("DATE(created_at)").count
-    # Sort by date, replace date with number (7 is the oldest day, 1 is today) and return array with results
-    array_result = hash_result.sort.each {|item| item[0] = days; days -= 1}
+    hash_result = sql_query.group_by_day(:created_at, range: (daycount.days.ago + 1.day)..Time.now).count.values
+    return hash_result
   end
 end

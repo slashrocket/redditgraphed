@@ -13,6 +13,7 @@ Rails.application.routes.draw do
 
   ##### SHOW PATHS
   match '/post/:title', to: 'post#show', via: 'get', as: 'post'
+  match '/post/:title/timeframe', to: 'post#timeframe', via: 'post', as: 'post_timeframe'
 
   ##### USER PATHS
   devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }

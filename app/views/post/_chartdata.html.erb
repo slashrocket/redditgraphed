@@ -1,0 +1,29 @@
+<div class="panel panel-default">
+  <div class="panel-body detailspanel" align="center">
+    <div id="detailschartonecontainer">
+      <h3>Break this post up by... <%= select 'Post', 'post_timeframe',  @timeframe, {:class => "form-control", :remote => true}  %></h3>
+      <div id="detailschartonespinner" class="spinner spinneroff">
+        <div class="rect1"></div>
+        <div class="rect2"></div>
+        <div class="rect3"></div>
+        <div class="rect4"></div>
+        <div class="rect5"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- on timeframe dropdown change, update things -->
+<script>
+  $("#Post_post_timeframe").change(function(){
+  $("#detailschartone").addClass('transparent')
+  $("#detailschartonespinner").removeClass('spinneroff')
+  $("#detailschartonespinner").addClass('spinneron')
+  $.post("<%=params[:title]%>/timeframe", {time: $("#Post_post_timeframe").val()});
+});
+</script>
+
+<script>
+  //render the charts
+  <%= render 'chartdata.js.erb' %>
+</script>

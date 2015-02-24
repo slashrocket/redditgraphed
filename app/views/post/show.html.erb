@@ -1,32 +1,22 @@
 <% @body_id = "details" %>
-<h2 align="center" class="posttitle"><%= @post.title %></h2>
+<h2 align="center" class="posttitle"><%= CGI.unescapeHTML(@post.title) %></h2>
 <div class="row">
   <div class="col-sm-4">
     <div class="panel panel-defaul">
       <div class="panel-body detailspanel">
         <%= link_to "Save this post", save_path(@post) %>
         <hr/>
-        <p>Found <%= @scrapes.count %> database entries for this post</p>
         <p>Post created: <%= time_ago_in_words(@post.post_created_at)%> ago</p>
         <p><a href="<%= @post.permalink %>">Reddit link</a></p>
         <p>Posted by: <a href="http://www.reddit.com/u/<%= @post.author %>" target="_blank"><%= @post.author %></a></p>
         <p>Posted to: <a href="http://www.reddit.com/r/<%= @post.subreddit %>" target="_blank">/r/<%= @post.subreddit %></a></p>
         <p>Peak upvote count: <%= @post.count %></p>
+        <p><a href="http://www.reddit.com/u/<%= @post.author %>" target="_blank"><%= @post.author %></a> has been on the front page <%= @opcount %> times</p>
+        <small>Found <%= @scrapes.count %> database entries for this post</small>
       </div>
     </div>
   </div>
   <div class="col-sm-8">
-    <div class="panel panel-default ">
-      <div class="panel-body detailspanel">
-        graph one
-      </div>
-    </div>
-    <div class="padding-top-15">
-      <div class="panel panel-default">
-        <div class="panel-body detailspanel">
-          graph two
-        </div>
-      </div>
-    </div>
+    <%= render partial: 'chartdata' %>
   </div>
 </div>

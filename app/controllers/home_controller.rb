@@ -7,42 +7,26 @@ class HomeController < ApplicationController
   end
 
   def timeframe
-    # Get the timeframe we'll be using in minutes from the url
-    @time_in_minutes = params[:time]
     # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
-    @subscriber = Subscriber.title_score_hash_timeframe(@time_in_minutes) rescue nil
+    @subscriber = Subscriber.title_score_hash_timeframe(params[:time]) rescue nil
     #if we dont get at least 10 results back, we dont have proper DB data, kick back an alert message and redirect
-    if !@subscriber.present? or @subscriber.count != 10
-      return render partial: 'home/nodata.js.erb'
-    end
-    # Sort by upvote count (the value of hash)
-    @subscribersorted = Hash[@subscriber.sort_by{|k, v| v}.reverse]
+    unless @subscriber.present? then return render partial: 'home/nodata.js.erb' end
+    @subscribersorted = @subscriber
     # Render the new results on the page
     render partial: 'home/chartdata.js.erb'
   end
 
   def title
     # Get the title we'll be using from the url
-    @title = Subscriber.find_by_title(params[:title].html_safe)
+    @title = Subscriber.find_by_title(CGI::escapeHTML(params[:title]))
     #if an error occured or we couldnt find anything, alert the user
-    if !@title.present? then return render partial: 'home/nodata.js.erb' end
-    #get data for detailed charts
-    @op = @title.author
-    @opcount = Subscriber.where("author = ?", @op).count
-    if !@op.present? then return render partial: 'home/nodata.js.erb' end
-    @subreddit_name = @title.subreddit
-    @op_subreddit_data = Subscriber.user_top_posts(@op)
-    @subreddit_popularity = Subscriber.subreddit_popularity(@subreddit_name, 7)
-    @subreddit_popularity_formatted = []
-    @subreddit_popularity.each do |x|
-      @subreddit_popularity_formatted += [x.second]
-    end
-    until @subreddit_popularity_formatted.count >= 7
-      @subreddit_popularity_formatted += [0]
-    end
+    unless @title.present? then return render partial: 'home/nodata.js.erb' end
+    #get number of times op has been top 10
+    @opcount = Subscriber.where("author = ?", @title.author).count
+    #get the subreddit popularity for the past week
+    @subreddit_popularity = Subscriber.subreddit_popularity(@title.subreddit, 7)
     #get the past average of a post for x number of hours, in one hour increments
     @subreddit_past = Subscriber.pasthours(@title, 12)
-
     # Render the new results on the page
     render partial: 'home/renderchartdetails.js.erb'
   end
