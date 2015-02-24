@@ -54,6 +54,12 @@ GEM
     bullet (4.14.2)
       activesupport (>= 3.0.0)
       uniform_notifier (>= 1.6.0)
+    capybara (2.4.4)
+      mime-types (>= 1.16)
+      nokogiri (>= 1.3.3)
+      rack (>= 1.0.0)
+      rack-test (>= 0.5.4)
+      xpath (~> 2.0)
     celluloid (0.16.0)
       timers (~> 4.0.0)
     code_analyzer (0.4.5)
@@ -67,6 +73,7 @@ GEM
     coffee-script-source (1.8.0)
     colored (1.2)
     connection_pool (2.1.0)
+    database_cleaner (1.4.0)
     devise (3.4.1)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -74,6 +81,7 @@ GEM
       responders
       thread_safe (~> 0.1)
       warden (~> 1.2.3)
+    diff-lcs (1.2.5)
     elasticsearch (1.0.4)
       elasticsearch-api (= 1.0.4)
       elasticsearch-transport (= 1.0.4)
@@ -89,6 +97,13 @@ GEM
       multi_json
     erubis (2.7.0)
     execjs (2.2.2)
+    factory_girl (4.5.0)
+      activesupport (>= 3.0.0)
+    factory_girl_rails (4.5.0)
+      factory_girl (~> 4.5.0)
+      railties (>= 3.0.0)
+    faker (1.4.3)
+      i18n (~> 0.5)
     faraday (0.9.1)
       multipart-post (>= 1.2, < 3)
     font-awesome-rails (4.2.0.0)
@@ -127,6 +142,7 @@ GEM
     multi_json (1.10.1)
     multi_xml (0.5.5)
     multipart-post (2.0.0)
+    newrelic_rpm (3.9.0.229)
     nokogiri (1.6.5)
       mini_portile (~> 0.6.0)
     oauth2 (1.0.0)
@@ -205,6 +221,23 @@ GEM
     require_all (1.3.2)
     responders (2.0.2)
       railties (>= 4.2.0.alpha, < 5)
+    rspec-core (3.2.0)
+      rspec-support (~> 3.2.0)
+    rspec-expectations (3.2.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-mocks (3.2.0)
+      diff-lcs (>= 1.2.0, < 2.0)
+      rspec-support (~> 3.2.0)
+    rspec-rails (3.2.0)
+      actionpack (>= 3.0, <= 4.2)
+      activesupport (>= 3.0, <= 4.2)
+      railties (>= 3.0, <= 4.2)
+      rspec-core (~> 3.2.0)
+      rspec-expectations (~> 3.2.0)
+      rspec-mocks (~> 3.2.0)
+      rspec-support (~> 3.2.0)
+    rspec-support (3.2.1)
     ruby-progressbar (1.7.1)
     sass (3.4.9)
     sass-rails (5.0.1)
@@ -221,6 +254,8 @@ GEM
       elasticsearch (>= 1)
       hashie
     sexp_processor (4.4.5)
+    shoulda-matchers (2.8.0)
+      activesupport (>= 3.0.0)
     sidekiq (3.3.0)
       celluloid (>= 0.16.0)
       connection_pool (>= 2.0.0)
@@ -255,6 +290,8 @@ GEM
     warden (1.2.3)
       rack (>= 1.0)
     will_paginate (3.0.5)
+    xpath (2.0.0)
+      nokogiri (~> 1.3)
 
 PLATFORMS
   ruby
@@ -263,16 +300,21 @@ DEPENDENCIES
   autoprefixer-rails
   bootstrap-sass
   bullet
+  capybara (~> 2.4.4)
   coffee-rails (~> 4.1.0)
+  database_cleaner (~> 1.4.0)
   devise
   elasticsearch-model
   elasticsearch-rails
+  factory_girl_rails (~> 4.5.0)
+  faker (~> 1.4.3)
   font-awesome-rails
   groupdate
   hirb
   jbuilder (~> 2.0)
   jquery-rails
   lol_dba
+  newrelic_rpm
   omniauth-reddit!
   pg
   puma
@@ -282,9 +324,11 @@ DEPENDENCIES
   rails_best_practices
   redditkit
   redis
+  rspec-rails (~> 3.0)
   sass-rails (~> 5.0)
   sdoc (~> 0.4.0)
   searchkick
+  shoulda-matchers
   sidekiq
   therubyracer
   turbolinks

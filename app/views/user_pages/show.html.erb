@@ -18,11 +18,14 @@
                 </a>
               </h4>
             </div>
-            <div id="<%=x%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <% if x == @saved.first %>
+              <div id="<%=x%>" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="headingOne">
+            <% else %>
+              <div id="<%=x%>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="headingOne">
+            <% end %>
               <div class="panel-body">
                 <%= link_to "View post details", post_path(savefound) %>
                 <hr/>
-                GRAPH GOES HERE
               </div>
             </div>
           </div>
@@ -32,3 +35,6 @@
     <% end %>
   </div>
 </div>
+<script>
+  <%= render partial: 'user_pages/chartdata.js.erb'%>
+</script>

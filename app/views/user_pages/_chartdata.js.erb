@@ -1,38 +1,6 @@
 $(document).ready(function() {
 
-//make sure the spinner stays off if the page loaded correctly
-$("#detailschartonespinner").removeClass('spinneron')
-$("#detailschartonespinner").addClass('spinneroff')
-
-
-<% if !@chartone.present? then @chartone = {"n/a" => 0, "n/a" => 0} end %>
-<% if @chartone.count == 1 then @chartone.merge!("n/a" => 0) end %>
-
-var detailschartonedata = {
-    labels: [
-    <% @chartone.each_pair do |x, y| %>
-        "<%= x.gsub('"', '').html_safe %>",
-      <% end %>
-    ],
-    datasets: [
-        {
-            label: "Top 10 Posts",
-            fillColor: "rgba(239,247,255,0.2)",
-            strokeColor: "rgba(51,102,153,0.5)",
-            pointColor: "rgba(51,102,153,0.75)",
-            pointStrokeColor: "#fff",
-            pointHighlightFill: "#336699",
-            pointHighlightStroke: "rgba(198,198,198,1)",
-            data: [
-              <% @chartone.each_pair do |x, y| %>
-                <%= y %>,
-              <% end %>
-            ]
-        }
-    ]
-};
-
-var detailschartoneoptions = {
+var chartoptions = {
 
     ///Boolean - Whether grid lines are shown across the chart
     scaleShowGridLines : true,
@@ -80,12 +48,41 @@ var detailschartoneoptions = {
     scaleBeginAtZero: true
 };
 
+<% @saved.each do |x| %>
+<% savefound = Subscriber.find(x) %>
+<% chartdata = Subscriber.pastminutes(savefound, 60) %>
+<% if !chartdata.present? then chartdata = {"n/a" => 0, "n/a" => 0} end %>
+<% if chartdata.count == 1 then chartdata.merge!("n/a" => 0) end %>
+var data<%=x%> = {
+    labels: [
+    <% chartdata.each_pair do |x, y| %>
+        "<%= x.gsub('"', '').html_safe %>",
+      <% end %>
+    ],
+    datasets: [
+        {
+            label: "Current upvotes per hour",
+            fillColor: "rgba(239,247,255,0.2)",
+            strokeColor: "rgba(51,102,153,0.5)",
+            pointColor: "rgba(51,102,153,0.75)",
+            pointStrokeColor: "#fff",
+            pointHighlightFill: "#336699",
+            pointHighlightStroke: "rgba(198,198,198,1)",
+            data: [
+              <% chartdata.each_pair do |x, y| %>
+                <%= y %>,
+              <% end %>
+            ]
+        }
+    ]
+};
 
 //ugly hack to clear old chart on refresh
-  $('#detailschartone').remove();
-  $('#detailschartonecontainer').append('<canvas id="detailschartone"></canvas>');
+  $('#c<%=x%>').remove();
+  $('#<%=x%>').append('<canvas id="c<%=x%>"></canvas>');
 
 //draw the applicant per day line chart
-var cty = document.getElementById("detailschartone").getContext("2d");
-var DetailsChartOneChart = new Chart(cty).Line(detailschartonedata, detailschartoneoptions);
+var cty<%=x%> = document.getElementById("c<%=x%>").getContext("2d");
+var chart<%=x%> = new Chart(cty<%=x%>).Line(data<%=x%>, chartoptions);
+<% end %>
 });
