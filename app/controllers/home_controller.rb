@@ -19,7 +19,7 @@ class HomeController < ApplicationController
     # Get the title we'll be using from the url
     @title = Subscriber.find_by_title(CGI::escapeHTML(title_params))
     #if an error occured or we couldnt find anything, alert the user
-    return render partial: 'home/nodata.js.erb' unless @title.present?  
+    return render partial: 'home/nodata.js.erb' unless @title.present?
     #get number of times op has been top 10
     @opcount = Subscriber.where("author = ?", @title.author).count
     #get the subreddit popularity for the past week

@@ -67,3 +67,7 @@ group :test do
   gem 'database_cleaner', '~> 1.4.0'
   gem 'shoulda-matchers', require: false
 end
+
+group :production do
+  gem 'newrelic_rpm'
+end
