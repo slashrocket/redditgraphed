@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     # Get the top 10 posts on the front page in the format of {title: upvotes} for this timeframe
     @subscriber = Subscriber.title_score_hash_timeframe(time_params) rescue nil
     #if we dont get at least 10 results back, we dont have proper DB data, kick back an alert message and redirect
-    unless @subscriber.present? then return render partial: 'home/nodata.js.erb' end
+    return render partial: 'home/nodata.js.erb' unless @subscriber.present?
     @subscribersorted = @subscriber
     # Render the new results on the page
     render partial: 'home/chartdata.js.erb'
@@ -20,7 +20,7 @@ class HomeController < ApplicationController
     # Get the title we'll be using from the url
     @title = Subscriber.find_by_title(CGI::escapeHTML(title_params))
     #if an error occured or we couldnt find anything, alert the user
-    unless @title.present? then return render partial: 'home/nodata.js.erb' end
+    return render partial: 'home/nodata.js.erb' unless @title.present?  
     #get number of times op has been top 10
     @opcount = Subscriber.where("author = ?", @title.author).count
     #get the subreddit popularity for the past week
