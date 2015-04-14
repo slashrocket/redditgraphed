@@ -1,5 +1,7 @@
 # README
 
+[![Learn Rails - Slack](https://learnrails-slackin.herokuapp.com/badge.svg)](https://learnrails-slackin.herokuapp.com)
+
 [![Code Climate](https://codeclimate.com/github/RailsStudyGroup/redditgraphed/badges/gpa.svg)](https://codeclimate.com/github/RailsStudyGroup/redditgraphed)
 
 ### Contributing
