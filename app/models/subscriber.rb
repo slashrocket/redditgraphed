@@ -21,12 +21,13 @@ class Subscriber < ActiveRecord::Base
     RedditKit.front_page(options = {:limit => 10})
   end
 
-  # Saves each individual post as a new record to db -- this is run every 5 minute as a sidekiq job
+  # Saves each individual post as a new record to db
+  # this is run every 5 minute as a sidekiq job
   def self.save_top_ten
     # get the top ten reddit posts and iterate through them as objects
     self.top_ten.each do |post|
       # check if this post already exists in the database
-      foundindatabase = self.find_by_title(CGI::escapeHTML(post.title)) rescue nil
+      foundindatabase = self.find_by_title(CGI.escapeHTML(post.title)) rescue nil
       # if its found, only save its current score
       if foundindatabase.present?
         new_score = Score.new
@@ -45,7 +46,7 @@ class Subscriber < ActiveRecord::Base
       # if it isnt found, save it as a new subscriber and then save its score
       else
         new_sub = Subscriber.new
-        new_sub.title = CGI::escapeHTML(post.title)
+        new_sub.title = CGI.escapeHTML(post.title)
         new_sub.subreddit = post.subreddit
         new_sub.author = post.author
         new_sub.permalink = post.permalink
@@ -79,7 +80,7 @@ class Subscriber < ActiveRecord::Base
     x.each do |t|
       hash["#{t.title}"] = t.score
     end
-    hash = Hash[hash.sort_by{|k, v| v}.reverse]
+    hash = Hash[hash.sort_by { |_k, v| v }.reverse]
     hash
   end
 
