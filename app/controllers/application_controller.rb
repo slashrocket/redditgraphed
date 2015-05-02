@@ -16,11 +16,11 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  def after_sign_in_path_for(user)
+  def after_sign_in_path_for(_user)
     dashboard_url
   end
 
-  def after_sign_up_path_for(user)
+  def after_sign_up_path_for(_user)
     dashboard_url
   end
 end
