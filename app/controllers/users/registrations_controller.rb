@@ -2,7 +2,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
   prepend_before_filter :require_no_authentication, only: [ :new, :create, :cancel ]
   prepend_before_filter :authenticate_scope!, only: [:edit, :update, :destroy]
 
-    # POST /resource
+  # POST /resource
   def create
     build_resource(sign_up_params)
     resource.name = params[:user][:name]
@@ -46,7 +46,7 @@ class Users::RegistrationsController < Devise::RegistrationsController
       sign_in @user, :bypass => true
       redirect_to after_update_path_for(@user)
     else
-      render "edit"
+      render 'edit'
     end
   end
 
@@ -54,6 +54,6 @@ class Users::RegistrationsController < Devise::RegistrationsController
 
   def needs_password?(user, params)
     user.email != params[:user][:email] ||
-    params[:user][:password].present?
+      params[:user][:password].present?
   end
 end
