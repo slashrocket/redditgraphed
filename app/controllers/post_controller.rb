@@ -1,9 +1,14 @@
 class PostController < ApplicationController
   def show
     @post = Subscriber.find(show_params)
-    @opcount = Subscriber.where("author = ?", @post.author).count
+    @opcount = Subscriber.where('author = ?', @post.author).count
     @scrapes = @post.scores
-    @timeframe = {'5 minutes' => 5, '10 minutes' => 10, '15 minutes' => 15, '30 minutes' => 30, '45 minutes' => 45, 'hour' => 60}
+    @timeframe = { '5 minutes' => 5,
+                   '10 minutes' => 10,
+                   '15 minutes' => 15,
+                   '30 minutes' => 30,
+                   '45 minutes' => 45,
+                   'hour' => 60 }
     @chartone = Subscriber.pastminutes(@post, 10)
   end
 
@@ -21,6 +26,6 @@ class PostController < ApplicationController
   end
 
   def time_params
-    params.permit(:title,:time)
+    params.permit(:title, :time)
   end
 end
