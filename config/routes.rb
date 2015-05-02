@@ -1,5 +1,4 @@
 Rails.application.routes.draw do
-
   ##### SEARCH PATHS
   get 'search/index'
   get 'search/results'
@@ -16,9 +15,9 @@ Rails.application.routes.draw do
   match '/post/:title/timeframe', to: 'post#timeframe', via: 'post', as: 'post_timeframe'
 
   ##### USER PATHS
-  devise_for :users, controllers: { sessions: "users/sessions", registrations: "users/registrations" }
+  devise_for :users, controllers: { sessions: 'users/sessions', registrations: 'users/registrations' }
   devise_scope :users do
-    match 'users/:id', to: "user_pages#show", via: 'get', as: 'user_page'
+    match 'users/:id', to: 'user_pages#show', via: 'get', as: 'user_page'
   end
   match '/dashboard', to: 'user_pages#index', via: 'get', as: 'dashboard'
   match '/dashboard/:id/save', to: 'user_pages#save', via: 'get', as: 'save'
