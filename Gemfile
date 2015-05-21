@@ -65,6 +65,8 @@ group :test do
   gem 'capybara', '~> 2.4.4'
   gem 'database_cleaner', '~> 1.4.0'
   gem 'shoulda-matchers', require: false
+  gem 'fuubar'
+  gem 'regressor', git: 'https://github.com/ndea/regressor.git', branch: 'master'
 end
 
 group :production do
