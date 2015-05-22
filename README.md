@@ -5,7 +5,7 @@
 [![Code Climate](https://codeclimate.com/github/RailsStudyGroup/redditgraphed/badges/gpa.svg)](https://codeclimate.com/github/RailsStudyGroup/redditgraphed)
 
 ### Contributing
-Feel free to contact us on slack at: https://learnrails.slack.com
+Feel free to contact us on slack at: https://slashrocket.io
 
 ### Background processing
 * _Requires [Redis](http://redis.io)_
