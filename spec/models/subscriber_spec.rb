@@ -105,10 +105,10 @@ describe Subscriber do
     end
 
     it "should return a hash with scores for each hour ago" do
-      scores = Subscriber.pasthours(subscriber, 2)
+      scores = Subscriber.pasthours(subscriber, 3)
       expect(scores[0]).to eq subscriber.count
-      expect(scores[1]).to eq nil
-      expect(scores[2]).to eq nil
+      expect(scores[1]).to eq 0
+      expect(scores[2]).to eq 0
     end
   end
 
