@@ -35,7 +35,7 @@ class Subscriber < ActiveRecord::Base
   # Each post has attributes in a hash.
   #
   def self.top_ten
-    RedditKit.front_page(options = { limit: 10 })
+    RedditKit.front_page(limit: 10)
   end
 
   # Saves each of the top ten posts as a new record or adds a score record to
@@ -79,45 +79,17 @@ class Subscriber < ActiveRecord::Base
   # each hour during the given interval
   #
   def self.pasthours(subscriber, hours_ago)
-    result = []
-    (1..hours_ago).each do |n|
-      result << hour_average(subscriber, n)
-    end
-    result
-  end
-
-  def self.hour_average(subscriber, hour)
-    scores = subscriber.scores
-             .where(created_at: hour.hours.ago..(hour - 1).hours.ago)
-             .pluck(:score)
-    return nil unless scores.present?
-    (scores.sum.to_f / scores.size).floor
+    subscriber.scores.hour_averages(hours_ago)
   end
 
   # Returns a hash of times and the avg score for those times
   # Accepts a subscriber model instance and the desired interval
   # between data points in minutes
   #
-  def self.pastminutes(subscriber, interval)
-    all_scores = subscriber.scores.select(:score, :created_at)
-                 .order(created_at: :DESC)
-    first_created = all_scores.last.created_at
-    last_created = all_scores.first.created_at
-    minutes_apart = ((last_created.minus_with_coercion(first_created)).floor / 60)
-    interval_count = (minutes_apart / interval).floor
-    result = {}
-    last_time = first_created
-    (0..interval_count).each do
-      current_time = last_time + interval.minutes
-      scores = all_scores.where(created_at: last_time..current_time)
-               .pluck(:score)
-      if scores.present?
-        average = scores.sum.to_f / scores.size
-        result.merge!(last_time.strftime('%I:%M%p') => average.floor)
-      end
-      last_time = current_time
-    end
-    result
+  def self.pastminutes(subscriber, interval_length)
+    subscriber.scores
+      .order(created_at: :DESC)
+      .interval_averages(interval_length)
   end
 
   # Finds an author by the title of a post and returns a hash where the keys are
