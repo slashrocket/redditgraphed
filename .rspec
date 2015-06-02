@@ -1,4 +1,4 @@
 --color
 --require spec_helper
---format documentatio
---fuubar
+--format documentation
+--format Fuubar
