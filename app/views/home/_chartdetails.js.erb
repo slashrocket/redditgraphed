@@ -183,7 +183,7 @@ var polardata = [
     <% end %>
     <% if @subreddit_past.count > 5 %>
     {
-        value: <%= @subreddit_past.sixth %>,
+        value: <%= @subreddit_past[5] %>,
         color:"#F7464A",
         highlight: "#FF5A5E",
         label: "Hour six"
@@ -191,7 +191,7 @@ var polardata = [
     <% end %>
     <% if @subreddit_past.count > 6 %>
     {
-        value: <%= @subreddit_past.seventh %>,
+        value: <%= @subreddit_past[6] %>,
         color: "#46BFBD",
         highlight: "#5AD3D1",
         label: "Hour seven"
@@ -199,7 +199,7 @@ var polardata = [
     <% end %>
     <% if @subreddit_past.count > 7 %>
     {
-        value: <%= @subreddit_past.eighth %>,
+        value: <%= @subreddit_past[7] %>,
         color: "#FDB45C",
         highlight: "#FFC870",
         label: "Hour eight"
@@ -207,7 +207,7 @@ var polardata = [
     <% end %>
     <% if @subreddit_past.count > 8 %>
     {
-        value: <%= @subreddit_past.ninth %>,
+        value: <%= @subreddit_past[8] %>,
         color: "#949FB1",
         highlight: "#A8B3C5",
         label: "Hour nine"
@@ -215,7 +215,7 @@ var polardata = [
     <% end %>
     <% if @subreddit_past.count > 9 %>
     {
-        value: <%= @subreddit_past.tenth %>,
+        value: <%= @subreddit_past[9] %>,
         color: "#4D5360",
         highlight: "#616774",
         label: "Hour ten"
@@ -223,7 +223,7 @@ var polardata = [
     <% end %>
     <% if @subreddit_past.count > 10 %>
     {
-        value: <%= @subreddit_past.eleventh %>,
+        value: <%= @subreddit_past[10] %>,
         color:"#F7464A",
         highlight: "#FF5A5E",
         label: "Hour eleven"
@@ -231,7 +231,7 @@ var polardata = [
     <% end %>
     <% if @subreddit_past.count > 11 %>
     {
-        value: <%= @subreddit_past.twelfth %>,
+        value: <%= @subreddit_past[10] %>,
         color: "#46BFBD",
         highlight: "#5AD3D1",
         label: "Hour twelve"
