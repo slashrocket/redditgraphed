@@ -78,18 +78,16 @@ class Subscriber < ActiveRecord::Base
   # Returns an array of the average scores for a subscriber record for
   # each hour during the given interval
   #
-  def self.pasthours(subscriber, hours_ago)
-    subscriber.scores.hour_averages(hours_ago)
+  def pasthours(hours_ago)
+    scores.hour_averages(hours_ago)
   end
 
   # Returns a hash of times and the avg score for those times
   # Accepts a subscriber model instance and the desired interval
   # between data points in minutes
   #
-  def self.pastminutes(subscriber, interval_length)
-    subscriber.scores
-      .order(created_at: :DESC)
-      .interval_averages(interval_length)
+  def pastminutes(interval_length)
+    scores.order(created_at: :DESC).interval_averages(interval_length)
   end
 
   # Finds an author by the title of a post and returns a hash where the keys are
