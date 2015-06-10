@@ -105,7 +105,7 @@ describe Subscriber do
     end
 
     it "should return a hash with scores for each hour ago" do
-      scores = Subscriber.pasthours(subscriber, 3)
+      scores = subscriber.pasthours(3)
       expect(scores[0]).to eq subscriber.count
       expect(scores[1]).to eq 0
       expect(scores[2]).to eq 0
@@ -113,7 +113,6 @@ describe Subscriber do
   end
 
   describe '#pastminutes' do
-    let(:subscriber) { Subscriber.first }
     before do
       Subscriber.save_top_ten
       Subscriber.first.record_score(100)
@@ -123,7 +122,7 @@ describe Subscriber do
     end
 
     it 'should return a hash with scores' do
-      scores = Subscriber.pastminutes(subscriber, 15)
+      scores = Subscriber.first.pastminutes(15)
       expect(scores.size).to eq 3
       scores.each do |k, v|
         expect(v).to be_an Integer

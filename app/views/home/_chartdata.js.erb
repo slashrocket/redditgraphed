@@ -7,7 +7,7 @@ $("#subscriberschartspinner").addClass('spinneroff')
   
 var subscribersdata = {
     labels: [
-      <% @subscriber.each_pair do |x, y| %>
+      <% @subscribers.each_pair do |x, y| %>
         "<%= x.gsub('"', '').html_safe %>",
       <% end %>
     ],
@@ -21,7 +21,7 @@ var subscribersdata = {
             pointHighlightFill: "#336699",
             pointHighlightStroke: "rgba(198,198,198,1)",
             data: [
-              <% @subscriber.each_pair do |x, y| %>
+              <% @subscribers.each_pair do |x, y| %>
                 <%= y.to_i %>,
               <% end %>
             ]

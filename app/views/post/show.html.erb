@@ -11,7 +11,7 @@
         <p>Posted by: <a href="http://www.reddit.com/u/<%= @post.author %>" target="_blank"><%= @post.author %></a></p>
         <p>Posted to: <a href="http://www.reddit.com/r/<%= @post.subreddit %>" target="_blank">/r/<%= @post.subreddit %></a></p>
         <p>Peak upvote count: <%= @post.count %></p>
-        <p><a href="http://www.reddit.com/u/<%= @post.author %>" target="_blank"><%= @post.author %></a> has been on the front page <%= @opcount %> times</p>
+        <p><a href="http://www.reddit.com/u/<%= @post.author %>" target="_blank"><%= @post.author %></a> has been on the front page <%= @author_posts %> times</p>
         <small>Found <%= @scrapes.count %> database entries for this post</small>
       </div>
     </div>
