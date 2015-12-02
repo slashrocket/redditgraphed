@@ -1,10 +1,6 @@
 # README
 
-[![slashrocket - Slack](https://slashrocket-slackin.herokuapp.com/badge.svg)](https://slashrocket.github.io)
-
-[![Code Climate](https://codeclimate.com/github/RailsStudyGroup/redditgraphed/badges/gpa.svg)](https://codeclimate.com/github/RailsStudyGroup/redditgraphed)
-
-[![Gittens](http://gittens.r15.railsrumble.com//badge/slashrocket/redditgraphed)](http://gittens.r15.railsrumble.com//badge/slashrocket/redditgraphed)
+[![slashrocket - Slack](https://slashrocket-slackin.herokuapp.com/badge.svg)](https://slashrocket.github.io) | [![Code Climate](https://codeclimate.com/github/RailsStudyGroup/redditgraphed/badges/gpa.svg)](https://codeclimate.com/github/RailsStudyGroup/redditgraphed) | [![Gittens](http://gittens.r15.railsrumble.com//badge/slashrocket/redditgraphed)](http://gittens.r15.railsrumble.com//badge/slashrocket/redditgraphed)
 
 ### Contributing
 Feel free to contact us on slack at: https://slashrocket.io
